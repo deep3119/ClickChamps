@@ -4,7 +4,7 @@ import Choose from './Choose'
 import Numbers from './Numbers'
 import TypingPro from './TypingPro'
 import UserSays from './UserSays'
-import Footer from './footer'
+import Footer from './Footer'
 
 function Main() {
     return (

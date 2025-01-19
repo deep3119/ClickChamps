@@ -1,5 +1,5 @@
 import React from 'react'
-import '../Font.css'
+import '../../Font.css'
 
 function Navbar() {
     return (
