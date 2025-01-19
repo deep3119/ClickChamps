@@ -1,0 +1,72 @@
+@font-face {
+  font-family: 'geist-mono-latin-100-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-100-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-200-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-200-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-300-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-300-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-400-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-400-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-500-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-500-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-600-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-600-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-700-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-700-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-800-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-800-normal.ttf');
+}
+@font-face {
+  font-family: 'geist-mono-latin-900-normal';
+  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-900-normal.ttf');
+}
+
+.geist-mono-latin-100{
+  font-family: 'geist-mono-latin-100-normal';
+}
+
+.geist-mono-latin-200{
+  font-family: 'geist-mono-latin-200-normal';
+}
+
+.geist-mono-latin-300{
+  font-family: 'geist-mono-latin-300-normal';
+}
+
+.geist-mono-latin-400{
+  font-family: 'geist-mono-latin-400-normal';
+}
+
+.geist-mono-latin-500{
+  font-family: 'geist-mono-latin-500-normal';
+}
+
+.geist-mono-latin-600{
+  font-family: 'geist-mono-latin-600-normal';
+}
+
+.geist-mono-latin-700{
+  font-family: 'geist-mono-latin-700-normal';
+}
+
+.geist-mono-latin-800{
+  font-family: 'geist-mono-latin-800-normal';
+}
+
+.geist-mono-latin-900{
+  font-family: 'geist-mono-latin-900-normal';
+}
