@@ -4,7 +4,7 @@ import '../../Font.css'
 function Navbar() {
     return (
         <header className='w-full max-w-5xl mx-auto flex items-center justify-between px-6 py-4 '>
-            <a href="" className='text-2xl font-bold text-neutral-200 flex items-center space-x-1'>
+            <a href="/" className='text-2xl font-bold text-neutral-200 flex items-center space-x-1'>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap size-6 text-emerald-400">
                     <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
                 </svg>
@@ -28,7 +28,7 @@ function Navbar() {
                     </svg>
                     <p className="hidden md:block">Type</p>
                 </a>
-                <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/multiplayer">
+                <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/auth">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-swords">
                         <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"> </polyline>
                         <line x1="13" x2="19" y1="19" y2="13"></line>
