@@ -2,12 +2,12 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Home from "./Components/Home/Home";
 import Form from "./Components/Other/Form";
-import Type from "./Components/Other/Type";
 import LeaderBoard from "./Components/Other/LeaderBoard";
 import Result from "./Components/Other/Result";
 import Profile from "./Components/Other/Profile";
 import Multiplayer from "./Components/Other/Multiplayer";
 import Logout from "./Components/Common/Logout";
+import ClickGame from "./Components/Other/Click";
 
 const checkAuth = () => {
   const token = localStorage.getItem("token") || document.cookie.includes("access_token");
@@ -34,7 +34,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index element={<Home isAuthenticated={isAuthenticated} />} />
-        <Route path="/type" element={<Type isAuthenticated={isAuthenticated} />} />
+        <Route path="/click" element={<ClickGame isAuthenticated={isAuthenticated} />} />
         <Route path="/result" element={<Result isAuthenticated={isAuthenticated} />} />
         <Route path="/leaderboard" element={<LeaderBoard apiUrl={apiUrl} isAuthenticated={isAuthenticated} />} />
         <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />

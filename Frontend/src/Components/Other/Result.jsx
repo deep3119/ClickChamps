@@ -1,4 +1,3 @@
-// Result.jsx
 import React from 'react';
 import Navbar from '../Common/Navbar';
 import '../../Font.css';
@@ -7,14 +6,12 @@ import { useLocation } from 'react-router-dom';
 
 function Result({ isAuthenticated }) {
     const location = useLocation();
-    const { cps = 0, accuracy = 0, timeElapsed = 0 } = location.state || {};  // Receive state
-
-    console.log(cps, accuracy, timeElapsed);  // Debugging to ensure values are received properly
+    const { targetEfficiency = 0, clickAccuracy = 0, totalHits = 0, totalClicks = 0, clicksPerSecond = [] } = location.state || {};
 
     const stats = [
         {
-            title: 'CPS',
-            value: `${cps}`,
+            title: 'Target Efficiency',
+            value: `${targetEfficiency}%`,
             color: 'text-sky-400',
             icon: (
                 <svg
@@ -33,8 +30,8 @@ function Result({ isAuthenticated }) {
             ),
         },
         {
-            title: 'Accuracy',
-            value: `${accuracy}%`,
+            title: 'Click Accuracy',
+            value: `${clickAccuracy}%`,
             color: 'text-red-400',
             icon: (
                 <svg
@@ -55,9 +52,9 @@ function Result({ isAuthenticated }) {
             ),
         },
         {
-            title: 'Time',
-            value: `${timeElapsed}s`,
-            color: 'text-violet-400',
+            title: 'Total Hits',
+            value: `${totalHits}`,
+            color: 'text-green-400',
             icon: (
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -68,12 +65,29 @@ function Result({ isAuthenticated }) {
                     strokeWidth={2}
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="lucide lucide-hourglass size-8 mr-2"
+                    className="lucide lucide-check-circle size-8 mr-2"
                 >
-                    <path d="M5 22h14" />
-                    <path d="M5 2h14" />
-                    <path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22" />
-                    <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" />
+                    <path d="M20 6 9 17l-4-4" />
+                </svg>
+            ),
+        },
+        {
+            title: 'Total Clicks',
+            value: `${totalClicks}`,
+            color: 'text-yellow-400',
+            icon: (
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width={24}
+                    height={24}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-mouse-pointer size-8 mr-2"
+                >
+                    <path d="M14 2v10H4v-2h6V0h4v10h6v2h-6V2z" />
                 </svg>
             ),
         },
@@ -84,8 +98,7 @@ function Result({ isAuthenticated }) {
             <Navbar isAuthenticated={isAuthenticated} />
             <main className="grid place-content-center mt-20">
                 <div className="w-full max-w-5xl mx-auto space-y-8 pb-8 px-4 sm:px-6 lg:px-8">
-                    {/* Stats Section */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         {stats.map((stat, index) => (
                             <div
                                 key={index}
@@ -130,13 +143,12 @@ function Result({ isAuthenticated }) {
                                 <span>Performance Analysis</span>
                             </div>
                         </div>
-                        <PerformanceChart wpmPerMinute={[]} />
+                        <PerformanceChart clicksPerSecond={clicksPerSecond} />
                     </div>
 
-                    {/* Type Again Button */}
                     <div className="flex justify-center">
                         <a
-                            href="/type"
+                            href="/click"
                             className="inline-flex geist-mono-latin-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 shadow transition-all duration-300"
                         >
                             <svg
