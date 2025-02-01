@@ -1,15 +1,60 @@
 import React from 'react'
 import '../../Font.css'
+import axios from 'axios';
 
-const SignIn = ({setSignInMethod}) =>{
-    const setSignInMethodHandler =(a) =>{
-        if (a===1){
+const SignIn = ({ setSignInMethod, apiUrl }) => {
+    const setSignInMethodHandler = (a) => {
+        if (a === 1) {
             setSignInMethod(true)
         }
-        else if (a===0){
+        else if (a === 0) {
             setSignInMethod(false)
         }
     }
+
+    const handleSignIn = async (email, password) => {
+        try {
+            console.log("Requesting login with username/email:", email, "and password:", password);
+
+            const response = await axios.post(`${apiUrl}/user/login`, {
+                username_or_email: email,
+                password: password
+            });
+
+            const data = response.data;
+            if (response.status === 200) {
+                localStorage.setItem("token", data.access_token);
+
+                document.cookie = `access_token=${data.access_token}; path=/; SameSite=Lax;`;
+
+                console.log("Login successful:", data);
+                window.location.href = '/profile';
+            } else {
+                console.error("Login failed with response:", data);
+                alert(data.message);
+            }
+        } catch (error) {
+            console.error("Error logging in:", error);
+            alert("An error occurred while trying to sign in.");
+        }
+    };
+
+
+
+    const handleSubmitSignIn = (event) => {
+        event.preventDefault();
+        const email = event.target.email.value;
+        const password = event.target.password.value;
+
+        // Check if email and password are empty before making the request
+        if (!email || !password) {
+            alert("Please fill in both email and password.");
+            return;
+        }
+
+        handleSignIn(email, password);
+    };
+
     return (
         <>
             <div className="flex items-center justify-center mt-10 p-4 pb-10">
@@ -20,7 +65,7 @@ const SignIn = ({setSignInMethod}) =>{
                     <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800">
                         <div className="flex flex-col space-y-1.5 p-6">
                             <div className="tracking-tight geist-mono-latin-700 text-2xl font-bold text-center text-neutral-200">
-                                Welcome to TypeFast
+                                Welcome to ClickFast
                             </div>
                             <div className="text-sm geist-mono-latin-400 text-center text-neutral-400">
                                 Sign in to your account or create a new one
@@ -48,7 +93,7 @@ const SignIn = ({setSignInMethod}) =>{
                                         data-orientation="horizontal"
                                         data-radix-collection-item=""
                                         onClick={() => setSignInMethodHandler(1)}
-                                        >
+                                    >
                                         Sign In
                                     </button>
                                     <button
@@ -77,7 +122,7 @@ const SignIn = ({setSignInMethod}) =>{
                                     className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                     style={{ animationDuration: "0s" }}
                                 >
-                                    <form className="space-y-4 text-neutral-200">
+                                    <form onSubmit={handleSubmitSignIn} className="space-y-4 text-neutral-200">
                                         <div style={{ transform: "translateY(20px)" }}>
                                             <div className="space-y-2">
                                                 <label
@@ -163,7 +208,7 @@ const SignIn = ({setSignInMethod}) =>{
                                             </div>
                                         </div>
                                         <button
-                                            className="inline-flex geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
+                                            className="inline-flex geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
                                             type="submit"
                                         >
                                             Sign In

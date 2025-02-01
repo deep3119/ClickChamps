@@ -1,34 +1,25 @@
 import React from 'react'
 import '../../Font.css'
 
-function Navbar() {
+function Navbar({ isAuthenticated }) {
     return (
         <header className='w-full max-w-5xl mx-auto flex items-center justify-between px-6 py-4 '>
             <a href="/" className='text-2xl font-bold text-neutral-200 flex items-center space-x-1'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap size-6 text-emerald-400">
-                    <path d="M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z"></path>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap size-6 text-red-400">
+                    <path d="M9.417 0h6.958l-3.375 8h7l-13 16 4.375-11h-7.375z" />
                 </svg>
                 <p className='geist-mono-latin-700'>
-                    Type
-                    <span className="text-emerald-400">Fast</span>
+                    Click
+                    <span className="text-red-400">Champs</span>
                 </p>
             </a>
             <nav className="flex items-center gap-x-6 geist-mono-latin-400">
                 <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/type">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-keyboard">
-                        <path d="M10 8h.01"></path>
-                        <path d="M12 12h.01"></path>
-                        <path d="M14 8h.01"></path>
-                        <path d="M16 12h.01"></path>
-                        <path d="M18 8h.01"></path>
-                        <path d="M6 8h.01"></path>
-                        <path d="M7 16h10"></path>
-                        <path d="M8 12h.01"></path>
-                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-keyboard"><path d="M4 7v-3c0-2.209 1.791-4 4-4h3v7h-7zm9 0h7v-3c0-2.209-1.791-4-4-4h-3v7zm-9 2v7c0 4.418 3.582 8 8 8s8-3.582 8-8v-7h-16z" />
                     </svg>
-                    <p className="hidden md:block">Type</p>
+                    <p className="hidden md:block">Click</p>
                 </a>
-                <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/auth">
+                <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/multiplayer">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-swords">
                         <polyline points="14.5 17.5 3 6 3 3 6 3 17.5 14.5"> </polyline>
                         <line x1="13" x2="19" y1="19" y2="13"></line>
@@ -55,6 +46,27 @@ function Navbar() {
                     </svg>
                     <p className="hidden md:block">Profile</p>
                 </a>
+                {isAuthenticated ?
+                    <a href='/logout' className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 w-9 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width={24}
+                            height={24}
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-log-out !size-6"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                            <polyline points="16 17 21 12 16 7" />
+                            <line x1={21} x2={9} y1={12} y2={12} />
+                        </svg>
+                    </a>
+                    : <></>
+                }
             </nav>
         </header >
     )

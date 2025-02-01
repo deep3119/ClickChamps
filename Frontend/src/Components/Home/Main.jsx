@@ -13,7 +13,7 @@ function Main() {
             <Choose />
             <Numbers />
             <TypingPro />
-            <UserSays />
+            {/* <UserSays /> */}
             <Footer />
         </main>
     )

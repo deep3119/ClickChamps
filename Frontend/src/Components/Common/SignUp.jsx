@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import '../../Font.css'
+import axios from 'axios';
 
-function SignUp({ setSignInMethod }) {
+function SignUp({ setSignInMethod ,apiUrl}) {
     const setSignInMethodHandler = (a) => {
         if (a === 1) {
             setSignInMethod(true)
@@ -10,6 +11,44 @@ function SignUp({ setSignInMethod }) {
             setSignInMethod(false)
         }
     }
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+    
+        try {
+            const response = await axios.post(`${apiUrl}/user/register`, {
+                username: formData.name, 
+                email: formData.email,
+                password: formData.password
+            });
+            
+            console.log('Response:', response.data);
+    
+            // Handle successful signup (e.g., redirect, show success message, etc.)
+        } catch (error) {
+            console.error('Error during signup:', error.response ? error.response.data : error.message);
+    
+            // Handle error and show error message
+            if (error.response && error.response.data) {
+                alert(error.response.data.message || 'Something went wrong!');
+            }
+        }
+    };
+    
     return (
         <div className="flex items-center justify-center py-5 mt-10 p-4 pb-10">
             <div
@@ -76,7 +115,7 @@ function SignUp({ setSignInMethod }) {
                                 className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                 style={{ animationDuration: "0s" }}
                             >
-                                <form className="space-y-4 text-neutral-200">
+                                <form onSubmit={handleSubmit} className="space-y-4 text-neutral-200">
                                     <div style={{ transform: "translateY(20px)" }}>
                                         <div className="space-y-2">
                                             <label
@@ -109,8 +148,9 @@ function SignUp({ setSignInMethod }) {
                                                 <input
                                                     className="flex geist-mono-latin-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="John Doe"
-                                                    name="email"
-                                                    defaultValue=""
+                                                    name="name"
+                                                    value={formData.name}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -148,7 +188,8 @@ function SignUp({ setSignInMethod }) {
                                                     className="flex geist-mono-latin-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="john@gmail.com"
                                                     name="email"
-                                                    defaultValue=""
+                                                    value={formData.email}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
@@ -187,13 +228,14 @@ function SignUp({ setSignInMethod }) {
                                                     className="flex geist-mono-latin-400 mb-5 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="●●●●●●●●"
                                                     name="password"
-                                                    defaultValue=""
+                                                    value={formData.password}
+                                                    onChange={handleInputChange}
                                                 />
                                             </div>
                                         </div>
                                     </div>
                                     <button
-                                        className="inline-flex geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
+                                        className="inline-flex geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
                                         type="submit"
                                     >
                                         Sign Up{" "}
