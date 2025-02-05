@@ -10,12 +10,12 @@ function Profile({ isAuthenticated, apiUrl }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const access_token = Cookies.get('access_token');
-    // const access_token = localStorage.getItem('token'); 
+    // const access_token = Cookies.get('access_token');    
+    const access_token = localStorage.getItem('token'); 
 
     // useEffect(() => {
     //     axios.get(`${apiUrl}/profile/data`, {
-    //         withCredentials: true, // Enable sending credentials (cookies, etc.)
+    //         withCredentials: true, 
     //         headers: {
     //             'Authorization': `Bearer ${access_token}` // If you're using Bearer token authentication
     //         }
@@ -31,8 +31,8 @@ function Profile({ isAuthenticated, apiUrl }) {
     //         });
     // }, []);
 
-    // if (loading) return <p>Loading...</p>;
-    // if (error) return <p>Error: {error.message}</p>;
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
 
     return (
         <div className='__className_ea5f4b antialiased min-h-screen bg-gradient-to-b from-neutral-900 to-black text-neutral-400'>

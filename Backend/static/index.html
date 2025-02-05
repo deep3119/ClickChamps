@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Multiplayer Typing Speed Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin-top: 50px;
+      }
+      #game {
+        display: none;
+      }
+      #sentence {
+        font-size: 1.5em;
+        margin: 20px;
+      }
+      #typed-text {
+        width: 80%;
+        height: 100px;
+        font-size: 1.2em;
+      }
+      #results {
+        margin-top: 20px;
+      }
+      #leaderboard {
+        margin-top: 20px;
+        font-size: 1.2em;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Multiplayer Typing Speed Test</h1>
+    <div id="lobby">
+      <input type="text" id="username" placeholder="Enter your username" />
+      <button onclick="createGame()">Create Game</button>
+      <br /><br />
+      <input type="text" id="game-id" placeholder="Enter Game ID" />
+      <button onclick="joinGame()">Join Game</button>
+    </div>
+    <div id="game">
+      <p id="sentence"></p>
+      <button
+        id="start-button"
+        onclick="startGameForAll()"
+        style="display: none"
+      >
+        Start Game
+      </button>
+      <textarea
+        id="typed-text"
+        placeholder="Start typing here..."
+        disabled
+      ></textarea>
+      <div id="game-options">
+        <label>
+            <input type="radio" name="mode" value="words" checked /> Words
+        </label>
+        <label>
+            <input type="radio" name="mode" value="time" /> Time
+        </label>
+        <br />
+    
+        <div id="word-options">
+            <label for="word-count">Word Count:</label>
+            <select id="word-count">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="45">45</option>
+            </select>
+        </div>
+    
+        <div id="time-options" style="display: none;">
+            <label for="time-duration">Time Duration (seconds):</label>
+            <select id="time-duration">
+                <option value="15">15</option>
+                <option value="30">30</option>
+                <option value="60">60</option>
+            </select>
+        </div>
+    </div>
+    
+      <div id="leaderboard"></div>
+      <div id="results"></div>
+    </div>
+
+    <script>
+      const socket = io();
+let gameId;
+let username;
+let sentence = "";
+let startTime;
+let interval; // Declare interval globally
+let isCreator = false;
+
+socket.on("connect", () => {
+    console.log("Connected to Socket.IO server");
+});
+
+socket.on('game_created', (data) => {
+    console.log("Game created:", data); // Debug log
+    gameId = data.game_id;
+    isCreator = data.is_creator; // Set the isCreator flag
+    alert(`Game created! Game ID: ${gameId}`);
+    showGame();
+    if (isCreator) {
+        document.getElementById('start-button').style.display = 'block'; // Show start button only to the creator
+    }
+});
+
+socket.on("player_joined", (data) => {
+    console.log("Player joined:", data);
+    alert(`${data.username} joined the game!`);
+});
+
+socket.on('update_players', (data) => {
+    console.log("Players:", data.players); // Debug log
+    const players = data.players;
+    const currentPlayer = players.find(player => player.username === username); // Find the current player
+    if (currentPlayer) {
+        isCreator = currentPlayer.isCreator; // Update the isCreator flag
+    }
+    console.log(`Current player: ${username}, isCreator: ${isCreator}`); // Debug log
+});
+
+socket.on("game_started_for_all", (data) => {
+    console.log("Game started for all:", data); // Debug log
+    if (!data) {
+        console.error("No data received in game_started_for_all event.");
+        return;
+    }
+
+    sentence = data.sentence;
+    if (!sentence) {
+        console.error("No sentence received in game_started_for_all event.");
+        return;
+    }
+
+    document.getElementById("sentence").textContent = sentence;
+    document.getElementById("typed-text").disabled = false;
+    document.getElementById("typed-text").focus();
+    startTime = Date.now(); // Record the start time
+
+    // Start sending WPM and accuracy every 1 second
+    interval = setInterval(() => {
+        const typedText = document.getElementById("typed-text").value;
+        const currentTime = Date.now();
+        const timeElapsed = (currentTime - startTime) / 1000 / 60; // Convert to minutes
+
+        // Calculate WPM
+        const wordCount = typedText.split(" ").length;
+        const wpm = Math.round(wordCount / timeElapsed);
+
+        // Calculate accuracy
+        let correctChars = 0;
+        for (let i = 0; i < typedText.length; i++) {
+            if (typedText[i] === sentence[i]) {
+                correctChars++;
+            }
+        }
+        const accuracy = Math.round((correctChars / sentence.length) * 100);
+
+        // Send WPM and accuracy to the server
+        socket.emit("update_stats", {
+            game_id: gameId,
+            username: username,
+            wpm: wpm,
+            accuracy: accuracy,
+        });
+    }, 1000); // Send every 1 second
+});
+
+socket.on("update_leaderboard", (data) => {
+    console.log("Leaderboard updated:", data);
+    const leaderboardDiv = document.getElementById("leaderboard");
+    leaderboardDiv.innerHTML = "<h2>Leaderboard</h2>";
+    for (const [username, stats] of Object.entries(data)) {
+        leaderboardDiv.innerHTML += `<p>${username}: ${stats.wpm} WPM, ${stats.accuracy}% Accuracy</p>`;
+    }
+});
+
+socket.on("game_over", (data) => {
+    console.log("Game over:", data);
+    alert("Game over!");
+    console.log("Final results:", data.results);
+    clearInterval(interval); // Stop the interval when the game is over
+});
+
+socket.on("error", (data) => {
+    console.error("Error:", data.message);
+    alert(data.message);
+});
+
+function createGame() {
+    username = document.getElementById("username").value;
+    const mode = document.querySelector('input[name="mode"]:checked').value; // Get selected mode
+    const wordCount = mode === "words" ? parseInt(document.getElementById("word-count").value) : null;
+    const timeDuration = mode === "time" ? parseInt(document.getElementById("time-duration").value) : null;
+
+    if (!username) {
+        alert("Please enter a username.");
+        return;
+    }
+
+    if (mode === "words" && ![15, 30, 45].includes(wordCount)) {
+        alert("Please select a valid word count.");
+        return;
+    }
+
+    if (mode === "time" && ![15, 30, 60].includes(timeDuration)) {
+        alert("Please select a valid time duration.");
+        return;
+    }
+
+    socket.emit("create_game", username, mode, wordCount, timeDuration);
+}
+
+
+function joinGame() {
+    username = document.getElementById("username").value;
+    gameId = document.getElementById("game-id").value;
+    if (username && gameId) {
+        socket.emit("join_game", { game_id: gameId, username: username });
+        showGame();
+    } else {
+        alert("Please enter a username and game ID.");
+    }
+}
+
+function showGame() {
+    document.getElementById("lobby").style.display = "none";
+    document.getElementById("game").style.display = "block";
+}
+
+function startGameForAll() {
+    console.log("Start Game button clicked!"); // Debug log
+    if (isCreator) {
+        console.log("Creator clicked Start Game. Emitting start_game_for_all event."); // Debug log
+        socket.emit('start_game_for_all', { game_id: gameId });
+    } else {
+        console.log("User is not the creator. Cannot start the game."); // Debug log
+    }
+}
+
+// Automatically submit the result when the user finishes typing
+document.getElementById("typed-text").addEventListener("input", (event) => {
+    const typedText = event.target.value;
+    if (typedText === sentence) {
+        const currentTime = Date.now();
+        const timeElapsed = (currentTime - startTime) / 1000 / 60; // Convert to minutes
+
+        // Calculate WPM
+        const wordCount = typedText.split(" ").length;
+        const wpm = Math.round(wordCount / timeElapsed);
+
+        // Calculate accuracy
+        let correctChars = 0;
+        for (let i = 0; i < typedText.length; i++) {
+            if (typedText[i] === sentence[i]) {
+                correctChars++;
+            }
+        }
+        const accuracy = Math.round((correctChars / sentence.length) * 100);
+
+        // Send the final result
+        socket.emit("submit_result", {
+            game_id: gameId,
+            username: username,
+            typed_text: typedText,
+            wpm: wpm,
+            accuracy: accuracy,
+        });
+
+        // Stop the interval and disable the input field
+        clearInterval(interval); // Stop the interval
+        event.target.disabled = true; // Disable the input field
+    }
+});
+    </script>
+  </body>
+</html>

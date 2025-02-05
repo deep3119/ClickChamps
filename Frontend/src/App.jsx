@@ -35,7 +35,7 @@ function App() {
       <Routes>
         <Route index element={<Home isAuthenticated={isAuthenticated} />} />
         <Route path="/click" element={<ClickGame isAuthenticated={isAuthenticated} />} />
-        <Route path="/result" element={<Result isAuthenticated={isAuthenticated} />} />
+        <Route path="/result" element={<Result isAuthenticated={isAuthenticated} apiUrl={apiUrl} />} />
         <Route path="/leaderboard" element={<LeaderBoard apiUrl={apiUrl} isAuthenticated={isAuthenticated} />} />
         <Route path="/logout" element={<Logout setIsAuthenticated={setIsAuthenticated} />} />
 
