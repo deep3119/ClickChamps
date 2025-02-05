@@ -14,4 +14,3 @@ def store_game_result_route():
         return store_game_result(request, current_user)
     except Exception as e:
         return jsonify({"message": f"An error occurred: {str(e)}"}), 500
-

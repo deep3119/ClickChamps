@@ -31,7 +31,7 @@ const ClickGame = ({ isAuthenticated }) => {
                         onClick={() => setSignInMethodHandler('low')}
                         className={`py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'low' ? 'bg-neutral-700 text-neutral-50' : ''}`}
                     >
-                        Low
+                        Easy
                     </button>
                     <button
                         type="button"

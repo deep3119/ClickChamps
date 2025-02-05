@@ -19,7 +19,6 @@ def get_leaderboard():
                 'best_time_mode_wpm': all_time_best.get('time_mode', {}).get('wpm', 0),
                 'best_words_mode_wpm': all_time_best.get('words_mode', {}).get('wpm', 0)
             })
-        print(leaderboard_data)
 
         return jsonify({"leaderboard": leaderboard_data}), 200
     except Exception as e:
