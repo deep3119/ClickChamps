@@ -27,7 +27,7 @@ const MediumLevel = ({ duration = 20 }) => {
               score,
               penalty,
               level: "Medium",
-              targetEfficiency: `${((score / duration) * 100).toFixed(2)}%`,
+              targetEfficiency: parseFloat(((score / duration) * 100).toFixed(2)),
               efficiencyPerSecond,
             },
           });
@@ -90,6 +90,7 @@ const MediumLevel = ({ duration = 20 }) => {
   };
 
   const handleContainerClick = (e) => {
+    if (!gameStarted) return;
     // Check if the user clicked outside of any dots (penalty logic)
     const clickedInsideDot = dots.some((dot) => {
       const dotElement = document.getElementById(dot.id);

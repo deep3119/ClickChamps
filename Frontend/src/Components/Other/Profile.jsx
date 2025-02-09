@@ -11,25 +11,24 @@ function Profile({ isAuthenticated, apiUrl }) {
     const [error, setError] = useState(null);
 
     // const access_token = Cookies.get('access_token');    
-    const access_token = localStorage.getItem('token'); 
+    const access_token = localStorage.getItem('token');
 
-    // useEffect(() => {
-    //     axios.get(`${apiUrl}/profile/data`, {
-    //         withCredentials: true, 
-    //         headers: {
-    //             'Authorization': `Bearer ${access_token}` // If you're using Bearer token authentication
-    //         }
-    //     })
-    //         .then(response => {
-    //             console.log(response.data)
-    //             setData(response.data); // Store the response data
-    //             setLoading(false); // Set loading to false when data is fetched
-    //         })
-    //         .catch(err => {
-    //             setError(err); // Handle any errors
-    //             setLoading(false);
-    //         });
-    // }, []);
+    useEffect(() => {
+        axios.get(`${apiUrl}/profile/data`, {
+            withCredentials: true,
+            headers: {
+                'Authorization': `Bearer ${access_token}` // If you're using Bearer token authentication
+            }
+        })
+            .then(response => {
+                setData(response.data); // Store the response data
+                setLoading(false); // Set loading to false when data is fetched
+            })
+            .catch(err => {
+                setError(err); // Handle any errors
+                setLoading(false);
+            });
+    }, []);
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
@@ -44,7 +43,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                             DP
                         </span>
                     </span>
-                    <h1 className="text-3xl fira-800 font-bold text-neutral-200">{data.user.username}</h1>
+                    <h1 className="text-3xl fira-700 font-bold text-neutral-200">{data.user.username}</h1>
                 </header>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
@@ -65,10 +64,9 @@ function Profile({ isAuthenticated, apiUrl }) {
                             </svg>
                             <div>
                                 <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
-                                    Average WPM
+                                    Average Score
                                 </p>
-                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.average_wpm}</p>
-                            </div>
+                                <p className="text-2xl fira-400 font-bold text-neutral-200">{Math.round(data.user.stats.average_score)}</p>                            </div>
                         </div>
                     </div>
                     <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
@@ -91,9 +89,9 @@ function Profile({ isAuthenticated, apiUrl }) {
                             </svg>
                             <div>
                                 <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
-                                    Accuracy
+                                    target efficiency
                                 </p>
-                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.overall_accuracy}%</p>
+                                <p className="text-2xl fira-700 font-bold text-neutral-200">{Math.round(data.user.stats.overall_efficiency)}%</p>
                             </div>
                         </div>
                     </div>
@@ -120,8 +118,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                                 <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                     Tests Completed
                                 </p>
-                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.tests_completed}</p>
-                            </div>
+                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.tests_completed}</p>                            </div>
                         </div>
                     </div>
                 </div>
@@ -163,7 +160,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                                     className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                                     style={{}}
                                 >
-                                    <div className="grid grid-cols-2 gap-4 mt-4">
+                                    <div className="grid grid-cols-3 gap-3 mt-4">
                                         <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
                                             <div className="flex items-center p-6 gap-x-2">
                                                 <svg
@@ -185,10 +182,9 @@ function Profile({ isAuthenticated, apiUrl }) {
                                                 </svg>
                                                 <div>
                                                     <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
-                                                        15 Seconds
+                                                        Hard Level
                                                     </p>
-                                                    <p className="text-2xl font-bold fira-700 text-neutral-200">{data.user.stats.overall.all_time_best.time_mode.wpm} WPM</p>
-                                                </div>
+                                                    <p className="text-2xl font-bold fira-700 text-neutral-200">{data.user.stats.overall.all_time_best.hard_level.score}</p>                                                </div>
                                             </div>
                                         </div>
                                         <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
@@ -212,10 +208,36 @@ function Profile({ isAuthenticated, apiUrl }) {
 
                                                 <div>
                                                     <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
-                                                        10 WORDS
+                                                        Medium Level
                                                     </p>
-                                                    <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.all_time_best.words_mode.wpm} WPM</p>
-                                                </div>
+                                                    <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.all_time_best.medium_level.score}</p>                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
+                                            <div className="flex items-center p-6 gap-x-2">
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    width={24}
+                                                    height={24}
+                                                    viewBox="0 0 24 24"
+                                                    fill="none"
+                                                    stroke="currentColor"
+                                                    strokeWidth={2}
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                    className="lucide lucide-type size-8 mr-2 text-violet-400"
+                                                >
+                                                    <polyline points="4 7 4 4 20 4 20 7" />
+                                                    <line x1={9} x2={15} y1={20} y2={20} />
+                                                    <line x1={12} x2={12} y1={4} y2={20} />
+                                                </svg>
+
+                                                <div>
+
+                                                    <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
+                                                        easy Level
+                                                    </p>
+                                                    <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.all_time_best.low_level.score}</p>                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -262,13 +284,13 @@ function Profile({ isAuthenticated, apiUrl }) {
                         </div>
                     </div>
                     <div className="p-6 pt-0">
-                        <div className="h-[300px]">
-                           <Profile_Bar apiUrl={apiUrl} access_token={access_token}/>
+                        <div className="">
+                            <Profile_Bar apiUrl={apiUrl} access_token={access_token} />
                         </div>
                     </div>
                 </div>
-            </main>
-        </div>
+            </main >
+        </div >
     )
 }
 

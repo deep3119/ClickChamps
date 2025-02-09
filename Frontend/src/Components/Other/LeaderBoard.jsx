@@ -8,20 +8,21 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    // useEffect(() => {
-    //     axios.get(`${apiUrl}/leaderboard/top10`)
-    //         .then(response => {
-    //             setTimeout(() => {
-    //                 setData(response.data.leaderboard);
-    //                 setLoading(false);
-    //             }, 1000);
-    //         })
-    //         .catch(err => {
-    //             console.error("Error fetching data:", err);
-    //             setError("Failed to load data.");
-    //             setLoading(false);
-    //         });
-    // }, [apiUrl]);   
+    useEffect(() => {
+        axios.get(`${apiUrl}/leaderboard/top10`)
+            .then(response => {
+                setTimeout(() => {
+                    setData(response.data.leaderboard);
+                    console.log(response.data.leaderboard);
+                    setLoading(false);
+                }, 1000);
+            })
+            .catch(err => {
+                console.error("Error fetching data:", err);
+                setError("Failed to load data.");
+                setLoading(false);
+            });
+    }, [apiUrl]);
     console.log(data)
     if (error) return <p>{error}</p>;
     return (
@@ -82,42 +83,43 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                                     </svg>
                                 </div>) : <></>}
                             </div>
-                            {loading===false ? 
-                            <div className="overflow-x-auto">
-                                <div dir="ltr" className="relative overflow-hidden h-[300px] pr-4">
-                                    <style
-                                        dangerouslySetInnerHTML={{
-                                            __html:
-                                                "[data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}",
-                                        }}
-                                    />
-                                    <div
-                                        data-radix-scroll-area-viewport
-                                        className="h-full w-full rounded-[inherit]"
-                                        style={{ overflow: "hidden scroll" }}
-                                    >
-                                        <div style={{ minWidth: "100%", display: "table" }}>
-                                            <div className="relative w-full overflow-auto">
-                                                <table className="w-full caption-bottom text-sm">
-                                                    <thead className="[&_tr]:border-b">
-                                                        <tr className="border-b fira-700 transition-colors hover:bg-muted/50">
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">Rank</th>
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">Name</th>
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">WPM</th>
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300 hidden sm:table-cell">Accuracy</th>
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300 hidden md:table-cell">Time</th>
-                                                            <th className="h-10 px-2 text-left align-middle font-medium text-gray-300 hidden lg:table-cell">Mode</th>
+                            {loading === false ?
+                                <div className="overflow-x-auto">
+                                    <div dir="ltr" className="relative overflow-hidden h-[300px] pr-4">
+                                        <style
+                                            dangerouslySetInnerHTML={{
+                                                __html:
+                                                    "[data-radix-scroll-area-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-scroll-area-viewport]::-webkit-scrollbar{display:none}",
+                                            }}
+                                        />
+                                        <div
+                                            data-radix-scroll-area-viewport
+                                            className="h-full w-full rounded-[inherit]"
+                                            style={{ overflow: "hidden scroll" }}
+                                        >
+                                            <div className="overflow-x-auto">
+                                                <table className="w-full text-left border-collapse">
+                                                    <thead>
+                                                        <tr className="bg-neutral-800 text-neutral-300">
+                                                            <th className="py-2 px-4">Rank</th>
+                                                            <th className="py-2 px-4">Name</th>
+                                                            <th className="py-2 px-4">Average Score</th>
+                                                            <th className="py-2 px-4">Efficiency (%)</th>
+                                                            <th className="py-2 px-4">Tests Completed</th>
+                                                            <th className="py-2 px-4">Last Activity</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody className="[&_tr:last-child]:border-0">
+                                                    <tbody>
                                                         {data.map((player, index) => (
-                                                            <tr key={index} className="border-b fira-400 transition-colors hover:bg-neutral-800/50">
-                                                                <td className="p-2 align-middle font-medium text-gray-100">{index + 1}</td>
-                                                                <td className="p-2 align-middle text-gray-100">{player.username}</td>
-                                                                <td className="p-2 align-middle text-sky-400">{player.wpm}</td>
-                                                                <td className="p-2 align-middle text-red-400 hidden sm:table-cell">{player.accuracy}%</td>
-                                                                <td className="p-2 align-middle text-violet-400 hidden md:table-cell">{player.best_words_mode_wpm}s</td>
-                                                                <td className="p-2 align-middle text-gray-300 hidden lg:table-cell">words</td>
+                                                            <tr key={player._id} className="border-b border-neutral-700 hover:bg-neutral-900">
+                                                                <td className="py-2 px-4 text-neutral-400">{index + 1}</td>
+                                                                <td className="py-2 px-4 text-white font-semibold">{player.username}</td>
+                                                                <td className="py-2 px-4 text-neutral-400">{Math.round(player.average_score)}</td>
+                                                                <td className="py-2 px-4 text-neutral-400">{Math.round(player.overall_efficiency)}%</td>
+                                                                <td className="py-2 px-4 text-neutral-400">{player.tests_completed}</td>
+                                                                <td className="py-2 px-4 text-neutral-400">
+                                                                    {new Date(player.last_activity).toLocaleString()}
+                                                                </td>
                                                             </tr>
                                                         ))}
                                                     </tbody>
@@ -126,8 +128,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            :<></>}
+                                : <></>}
                         </div>
                     </div>
                 </div>

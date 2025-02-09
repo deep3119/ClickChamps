@@ -130,7 +130,7 @@ const LowLevel = () => {
 
       {/* Game Container */}
       <div
-        style={{ width: "80vw", height: "70vh" }}
+        style={{ width: "80vw", height: "70vh",backgroundColor: "#222" }}
         ref={gameContainerRef}
         className="relative border-4 border-neutral-400 rounded-lg overflow-hidden"
       >

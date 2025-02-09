@@ -27,7 +27,7 @@ const HardLevel = ({ duration = 25 }) => {
               score,
               penalty,
               level: "Hard",
-              targetEfficiency: `${((score / (score + penalty)) * 100 || 0).toFixed(2)}%`,
+              targetEfficiency: parseFloat(((score / (score + penalty)) * 100 || 0).toFixed(2)),
               efficiencyPerSecond,
             },
           });
