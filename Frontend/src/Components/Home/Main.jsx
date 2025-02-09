@@ -8,7 +8,7 @@ import Footer from './Footer'
 
 function Main() {
     return (
-        <main className="grid place-content-center mt-20">
+        <main>
             <Master />
             <Choose />
             <Numbers />
