@@ -8,6 +8,7 @@ import Profile from "./Components/Other/Profile";
 import Multiplayer from "./Components/Other/Multiplayer";
 import Logout from "./Components/Common/Logout";
 import ClickGame from "./Components/Other/Click";
+import { Toaster } from 'react-hot-toast';
 
 const checkAuth = () => {
   const token = localStorage.getItem("token") || document.cookie.includes("access_token");
@@ -53,6 +54,7 @@ function App() {
           element={isAuthenticated ? <Profile apiUrl={apiUrl} isAuthenticated={isAuthenticated} /> : <Navigate to="/auth" />}
         />
       </Routes>
+      <Toaster />
     </BrowserRouter>
   );
 }

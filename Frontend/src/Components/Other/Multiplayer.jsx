@@ -17,7 +17,7 @@ function Multiplayer({isAuthenticated}) {
                             opacity: "1",
                             transform: "none",
                         }}>
-                        <h1 className="text-3xl font-bold geist-mono-latin-700 mb-4 sm:mb-0">Multiplayer Arena</h1>
+                        <h1 className="text-3xl font-bold fira-700 mb-4 sm:mb-0">Multiplayer Arena</h1>
                     </div>
                     <div
                         className="grid grid-cols-1 lg:grid-cols-2 gap-8"
@@ -27,7 +27,7 @@ function Multiplayer({isAuthenticated}) {
                         }}>
                         <div className="rounded-xl border shadow bg-neutral-900/50 border-neutral-800 text-neutral-200">
                             <div className="flex flex-col space-y-1.5 p-6">
-                                <div className="font-semibold geist-mono-latin-600 tracking-tight flex items-center space-x-3 text-2xl">
+                                <div className="font-semibold fira-600 tracking-tight flex items-center space-x-3 text-2xl">
                                     <svg
                                         className="lucide lucide-plus size-8 text-emerald-400"
                                         fill="none"
@@ -46,7 +46,7 @@ function Multiplayer({isAuthenticated}) {
                                 </div>
                             </div>
                             <div className="p-6 pt-0">
-                                <form className="space-y-4 geist-mono-latin-400">
+                                <form className="space-y-4 fira-400">
                                     <div className="space-y-2 ">
                                         <input
                                             aria-describedby=":rl:-form-item-description"
@@ -192,7 +192,7 @@ function Multiplayer({isAuthenticated}) {
                         </div>
                         <div className="rounded-xl border shadow bg-neutral-900/50 border-neutral-800 text-neutral-200">
                             <div className="flex flex-col space-y-1.5 p-6">
-                                <div className="font-semibold geist-mono-latin-600 tracking-tight flex items-center space-x-3 text-2xl">
+                                <div className="font-semibold fira-600 tracking-tight flex items-center space-x-3 text-2xl">
                                     <svg
                                         className="lucide lucide-log-in size-8 text-sky-400"
                                         fill="none"
@@ -212,7 +212,7 @@ function Multiplayer({isAuthenticated}) {
                                 </div>
                             </div>
                             <div className="p-6 pt-0">
-                                <form className="space-y-4 geist-mono-latin-400">
+                                <form className="space-y-4 fira-400">
                                     <div className="space-y-2">
                                         <input
                                             aria-describedby=":rq:-form-item-description"
@@ -254,7 +254,7 @@ function Multiplayer({isAuthenticated}) {
                         }}>
                         <div className="rounded-xl border shadow bg-neutral-900/50 border-neutral-800 text-neutral-200">
                             <div className="flex flex-col space-y-1.5 p-6">
-                                <div className="font-semibold geist-mono-latin-600 tracking-tight flex items-center space-x-3 text-2xl">
+                                <div className="font-semibold fira-600 tracking-tight flex items-center space-x-3 text-2xl">
                                     <svg
                                         className="lucide lucide-hash size-8 text-violet-400"
                                         fill="none"
@@ -300,7 +300,7 @@ function Multiplayer({isAuthenticated}) {
                                                 display: "table",
                                                 minWidth: "100%",
                                             }}>
-                                            <div className="space-y-4 geist-mono-latin-400">
+                                            <div className="space-y-4 fira-400">
                                                 <div className="rounded-xl border text-card-foreground shadow bg-neutral-800/50 border-neutral-700 hover:bg-neutral-700 transition-all duration-300">
                                                     <div className="flex items-center justify-between p-4">
                                                         <div className="flex items-center space-x-4 text-lg ">

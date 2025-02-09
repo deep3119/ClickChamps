@@ -57,10 +57,10 @@ function SignUp({ setSignInMethod ,apiUrl}) {
             >
                 <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800">
                     <div className="flex flex-col space-y-1.5 p-6">
-                        <div className="tracking-tight geist-mono-latin-700 text-2xl font-bold text-center text-neutral-200">
+                        <div className="tracking-tight fira-700 text-2xl font-bold text-center text-neutral-200">
                             Welcome to TypeFast
                         </div>
-                        <div className="text-sm text-center geist-mono-latin-400 text-neutral-400">
+                        <div className="text-sm text-center fira-400 text-neutral-400">
                             Sign in to your account or create a new one
                         </div>
                     </div>
@@ -81,7 +81,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                     aria-controls="radix-:R2jttb:-content-signin"
                                     data-state="inactive"
                                     id="radix-:R2jttb:-trigger-signin"
-                                    className="py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-neutral-700 data-[state=active]:text-neutral-50 data-[state=active]:shadow-sm"
+                                    className="py-1 fira-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-neutral-700 data-[state=active]:text-neutral-50 data-[state=active]:shadow-sm"
                                     tabIndex={-1}
                                     data-orientation="horizontal"
                                     data-radix-collection-item=""
@@ -96,7 +96,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                     aria-controls="radix-:R2jttb:-content-signup"
                                     data-state="active"
                                     id="radix-:R2jttb:-trigger-signup"
-                                    className="py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-neutral-700 data-[state=active]:text-neutral-50 data-[state=active]:shadow-sm"
+                                    className="py-1 fira-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=active]:bg-neutral-700 data-[state=active]:text-neutral-50 data-[state=active]:shadow-sm"
                                     tabIndex={-1}
                                     data-orientation="horizontal"
                                     data-radix-collection-item=""
@@ -119,7 +119,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                     <div style={{ transform: "translateY(20px)" }}>
                                         <div className="space-y-2">
                                             <label
-                                                className="text-sm geist-mono-latin-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
+                                                className="text-sm fira-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
                                                 htmlFor=":R9mjttb:-form-item"
                                             >
                                                 Name
@@ -146,7 +146,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                                 </svg>
 
                                                 <input
-                                                    className="flex geist-mono-latin-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
+                                                    className="flex fira-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="John Doe"
                                                     name="name"
                                                     value={formData.name}
@@ -158,7 +158,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                     <div style={{ transform: "translateY(20px)" }}>
                                         <div className="space-y-2">
                                             <label
-                                                className="text-sm geist-mono-latin-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
+                                                className="text-sm fira-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
                                                 htmlFor=":R9mjttb:-form-item"
                                             >
                                                 E-mail
@@ -185,7 +185,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                                     <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
                                                 </svg>
                                                 <input
-                                                    className="flex geist-mono-latin-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
+                                                    className="flex fira-400 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="john@gmail.com"
                                                     name="email"
                                                     value={formData.email}
@@ -197,7 +197,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                     <div style={{ transform: "translateY(20px)" }}>
                                         <div className="space-y-2">
                                             <label
-                                                className="text-sm geist-mono-latin-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
+                                                className="text-sm fira-500 font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 text-neutral-200"
                                                 htmlFor=":Ramjttb:-form-item"
                                             >
                                                 Password
@@ -225,7 +225,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                                 </svg>
                                                 <input
                                                     type="password"
-                                                    className="flex geist-mono-latin-400 mb-5 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
+                                                    className="flex fira-400 mb-5 h-9 w-full rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm pl-10 bg-neutral-800 border-neutral-700 text-neutral-200 placeholder-neutral-400"
                                                     placeholder="●●●●●●●●"
                                                     name="password"
                                                     value={formData.password}
@@ -235,7 +235,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                         </div>
                                     </div>
                                     <button
-                                        className="inline-flex geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
+                                        className="inline-flex fira-600 items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-9 px-4 py-2 w-full"
                                         type="submit"
                                     >
                                         Sign Up{" "}
@@ -270,7 +270,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                         </div>
                     </div>
                     <div className="flex items-center p-6 pt-0">
-                        <button className="inline-flex geist-mono-latin-500 text-black bg-white items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full">
+                        <button className="inline-flex fira-500 text-black bg-white items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full">
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width={24}

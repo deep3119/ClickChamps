@@ -34,7 +34,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                     <div className="rounded-xl border text-card-foreground bg-neutral-900/50 border-neutral-800 shadow-lg">
                         <div className="flex flex-col space-y-1.5 p-6 pb-2">
                             <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
-                                <div className="font-semibold geist-mono-latin-600 tracking-tight text-xl sm:text-2xl flex items-center space-x-3 text-neutral-200">
+                                <div className="font-semibold fira-600 tracking-tight text-xl sm:text-2xl flex items-center space-x-3 text-neutral-200">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width={24}
@@ -57,7 +57,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                                 <div className="mb-4">
                                     <input
                                         type="text"
-                                        className="flex geist-mono-latin-400 h-9 rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-neutral-800 border-neutral-700 text-gray-100 w-full"
+                                        className="flex fira-400 h-9 rounded-md border px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50 md:text-sm bg-neutral-800 border-neutral-700 text-gray-100 w-full"
                                         placeholder="Search by name..."
                                         defaultValue=""
                                     />
@@ -100,7 +100,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                                             <div className="relative w-full overflow-auto">
                                                 <table className="w-full caption-bottom text-sm">
                                                     <thead className="[&_tr]:border-b">
-                                                        <tr className="border-b geist-mono-latin-700 transition-colors hover:bg-muted/50">
+                                                        <tr className="border-b fira-700 transition-colors hover:bg-muted/50">
                                                             <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">Rank</th>
                                                             <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">Name</th>
                                                             <th className="h-10 px-2 text-left align-middle font-medium text-gray-300">WPM</th>
@@ -111,7 +111,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                                                     </thead>
                                                     <tbody className="[&_tr:last-child]:border-0">
                                                         {data.map((player, index) => (
-                                                            <tr key={index} className="border-b geist-mono-latin-400 transition-colors hover:bg-neutral-800/50">
+                                                            <tr key={index} className="border-b fira-400 transition-colors hover:bg-neutral-800/50">
                                                                 <td className="p-2 align-middle font-medium text-gray-100">{index + 1}</td>
                                                                 <td className="p-2 align-middle text-gray-100">{player.username}</td>
                                                                 <td className="p-2 align-middle text-sky-400">{player.wpm}</td>
@@ -136,7 +136,7 @@ function LeaderBoard({ isAuthenticated, apiUrl }) {
                     style={{ transform: "translateY(20px)" }}
                 >
                     <a
-                        className="inline-flex text-white geist-mono-latin-600 items-center justify-center gap-2 whitespace-nowrap text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-10 rounded-md px-8 w-full sm:w-auto"
+                        className="inline-flex text-white fira-600 items-center justify-center gap-2 whitespace-nowrap text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-10 rounded-md px-8 w-full sm:w-auto"
                         href="/type"
                     >
                         Start New Race

@@ -8,12 +8,12 @@ function Navbar({ isAuthenticated }) {
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-zap size-6 text-red-400">
                     <path d="M9.417 0h6.958l-3.375 8h7l-13 16 4.375-11h-7.375z" />
                 </svg>
-                <p className='geist-mono-latin-700'>
+                <p className='fira-700'>
                     Click
                     <span className="text-red-400">Champs</span>
                 </p>
             </a>
-            <nav className="flex items-center gap-x-6 geist-mono-latin-400">
+            <nav className="flex items-center gap-x-6 fira-400">
                 <a className="flex items-center gap-x-2.5 hover:text-white transition-colors duration-300" href="/click">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-keyboard"><path d="M4 7v-3c0-2.209 1.791-4 4-4h3v7h-7zm9 0h7v-3c0-2.209-1.791-4-4-4h-3v7zm-9 2v7c0 4.418 3.582 8 8 8s8-3.582 8-8v-7h-16z" />
                     </svg>

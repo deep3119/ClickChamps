@@ -124,10 +124,8 @@ const LowLevel = () => {
   return (
     <div className="flex flex-col items-center">
       {/* Timer & Score */}
-      <div className="geist-mono-latin-500 text-white text-lg mb-4">
-        <p>Time Left: {gameTime}s</p>
-        <p>Score: {hits}</p> {/* Display the current score */}
-        <p>Penalties: {penaltyClicks}</p> {/* Display the penalties */}
+      <div className="fira-500 text-white text-lg mb-4">
+        <p>Score: {hits} | Time Left: {gameTime}s | Penalty: {penaltyClicks}</p> 
       </div>
 
       {/* Game Container */}

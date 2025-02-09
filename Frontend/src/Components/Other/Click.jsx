@@ -29,7 +29,7 @@ const ClickGame = ({ isAuthenticated }) => {
                         role="tab"
                         aria-selected={selectedLevel === 'low'}
                         onClick={() => setSignInMethodHandler('low')}
-                        className={`py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'low' ? 'bg-neutral-700 text-neutral-50' : ''}`}
+                        className={`py-1 fira-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'low' ? 'bg-neutral-700 text-neutral-50' : ''}`}
                     >
                         Easy
                     </button>
@@ -38,7 +38,7 @@ const ClickGame = ({ isAuthenticated }) => {
                         role="tab"
                         aria-selected={selectedLevel === 'medium'}
                         onClick={() => setSignInMethodHandler('medium')}
-                        className={`py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'medium' ? 'bg-neutral-700 text-neutral-50' : ''}`}
+                        className={`py-1 fira-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'medium' ? 'bg-neutral-700 text-neutral-50' : ''}`}
                     >
                         Medium
                     </button>
@@ -47,7 +47,7 @@ const ClickGame = ({ isAuthenticated }) => {
                         role="tab"
                         aria-selected={selectedLevel === 'hard'}
                         onClick={() => setSignInMethodHandler('hard')}
-                        className={`py-1 geist-mono-latin-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'hard' ? 'bg-neutral-700 text-neutral-50' : ''}`}
+                        className={`py-1 fira-500 inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 text-sm font-medium ring-offset-neutral-900 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 ${selectedLevel === 'hard' ? 'bg-neutral-700 text-neutral-50' : ''}`}
                     >
                         Hard
                     </button>

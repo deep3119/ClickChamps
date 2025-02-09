@@ -169,10 +169,10 @@ function Result({ isAuthenticated, apiUrl }) {
                                 <div className="flex items-center p-6 gap-x-2">
                                     <div className={stat.color}>{stat.icon}</div>
                                     <div>
-                                        <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                        <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                             {stat.title}
                                         </p>
-                                        <p className="text-2xl font-bold geist-mono-latin-700 text-neutral-200">
+                                        <p className="text-2xl font-bold fira-700 text-neutral-200">
                                             {stat.value}
                                         </p>
                                     </div>
@@ -212,7 +212,7 @@ function Result({ isAuthenticated, apiUrl }) {
                     <div className="flex justify-evenly">
                         <button
                             onClick={() => navigate("/click")}
-                            className="inline-flex geist-mono-latin-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 shadow transition-all duration-300"
+                            className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 shadow transition-all duration-300"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -232,7 +232,7 @@ function Result({ isAuthenticated, apiUrl }) {
                         </button>
                         <button
                             onClick={endGame}
-                            className="inline-flex geist-mono-latin-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 shadow transition-all duration-300"
+                            className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 shadow transition-all duration-300"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"

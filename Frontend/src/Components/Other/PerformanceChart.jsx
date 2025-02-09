@@ -4,7 +4,7 @@ import "../../Font.css";
 
 const PerformanceChart = ({ clicksPerSecond }) => {
     return (
-        <div className="geist-mono-latin-400" style={{ padding: "20px", borderRadius: "8px" }}>
+        <div className="fira-400" style={{ padding: "20px", borderRadius: "8px" }}>
             <LineChart width={800} height={400} data={clicksPerSecond} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#333" />
                 <XAxis dataKey="time" tick={{ fill: "#aaa" }} />

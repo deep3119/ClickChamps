@@ -117,10 +117,11 @@ const MediumLevel = ({ duration = 20 }) => {
   return (
     <div className="flex flex-col items-center">
       {/* Timer & Score */}
-      <div className="geist-mono-latin-500 text-white text-lg mb-4">
-        <p>Time Left: {gameTime}s</p>
-        <p>Score: {score}</p>
-        <p>Penalty: {penalty}</p>
+      <div className="fira-500 text-white text-lg mb-4">
+        <p>
+          Score: {score} |
+          Time Left: {gameTime}s |
+          Penalty: {penalty}</p>
       </div>
 
       {/* Game Container */}

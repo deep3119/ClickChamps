@@ -44,7 +44,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                             DP
                         </span>
                     </span>
-                    <h1 className="text-3xl geist-mono-latin-800 font-bold text-neutral-200">{data.user.username}</h1>
+                    <h1 className="text-3xl fira-800 font-bold text-neutral-200">{data.user.username}</h1>
                 </header>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 transition-all duration-300 hover:shadow-lg hover:bg-neutral-800/50">
@@ -64,10 +64,10 @@ function Profile({ isAuthenticated, apiUrl }) {
                                 <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2" />
                             </svg>
                             <div>
-                                <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                     Average WPM
                                 </p>
-                                <p className="text-2xl geist-mono-latin-700 font-bold text-neutral-200">{data.user.stats.overall.average_wpm}</p>
+                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.average_wpm}</p>
                             </div>
                         </div>
                     </div>
@@ -90,10 +90,10 @@ function Profile({ isAuthenticated, apiUrl }) {
                                 <circle cx={12} cy={12} r={2} />
                             </svg>
                             <div>
-                                <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                     Accuracy
                                 </p>
-                                <p className="text-2xl geist-mono-latin-700 font-bold text-neutral-200">{data.user.stats.overall.overall_accuracy}%</p>
+                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.overall_accuracy}%</p>
                             </div>
                         </div>
                     </div>
@@ -117,10 +117,10 @@ function Profile({ isAuthenticated, apiUrl }) {
                                 <path d="M8 17v-3" />
                             </svg>
                             <div>
-                                <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                     Tests Completed
                                 </p>
-                                <p className="text-2xl geist-mono-latin-700 font-bold text-neutral-200">{data.user.stats.overall.tests_completed}</p>
+                                <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.tests_completed}</p>
                             </div>
                         </div>
                     </div>
@@ -148,7 +148,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                                     <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
                                     <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
                                 </svg>
-                                <span className="text-neutral-200 geist-mono-latin-600">All-Time Best Scores</span>
+                                <span className="text-neutral-200 fira-600">All-Time Best Scores</span>
                             </div>
                         </div>
                         <div className="p-6 pt-0">
@@ -184,10 +184,10 @@ function Profile({ isAuthenticated, apiUrl }) {
                                                     <path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2" />
                                                 </svg>
                                                 <div>
-                                                    <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                                    <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                                         15 Seconds
                                                     </p>
-                                                    <p className="text-2xl font-bold geist-mono-latin-700 text-neutral-200">{data.user.stats.overall.all_time_best.time_mode.wpm} WPM</p>
+                                                    <p className="text-2xl font-bold fira-700 text-neutral-200">{data.user.stats.overall.all_time_best.time_mode.wpm} WPM</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -211,10 +211,10 @@ function Profile({ isAuthenticated, apiUrl }) {
                                                 </svg>
 
                                                 <div>
-                                                    <p className="text-sm geist-mono-latin-500 font-medium text-neutral-400 uppercase">
+                                                    <p className="text-sm fira-500 font-medium text-neutral-400 uppercase">
                                                         10 WORDS
                                                     </p>
-                                                    <p className="text-2xl geist-mono-latin-700 font-bold text-neutral-200">{data.user.stats.overall.all_time_best.words_mode.wpm} WPM</p>
+                                                    <p className="text-2xl fira-700 font-bold text-neutral-200">{data.user.stats.overall.all_time_best.words_mode.wpm} WPM</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,7 +257,7 @@ function Profile({ isAuthenticated, apiUrl }) {
                                     <path d="M4 18v3" />
                                     <path d="M8 14v7" />
                                 </svg>
-                                <span className="text-neutral-200 geist-mono-latin-600">Recent Performance</span>
+                                <span className="text-neutral-200 fira-600">Recent Performance</span>
                             </div>
                         </div>
                     </div>

@@ -10,40 +10,40 @@ const HardLevel = ({ duration = 25 }) => {
   const gameContainerRef = useRef(null);
   const navigate = useNavigate();
 
-// Add a new state variable
-const [efficiencyPerSecond, setEfficiencyPerSecond] = useState([]);
+  // Add a new state variable
+  const [efficiencyPerSecond, setEfficiencyPerSecond] = useState([]);
 
-// Update the timer useEffect
-useEffect(() => {
+  // Update the timer useEffect
+  useEffect(() => {
     if (!gameStarted) return;
 
     const timer = setInterval(() => {
-        setGameTime((prevTime) => {
-            if (prevTime <= 1) {
-                clearInterval(timer);
-                setGameStarted(false);
-                navigate("/result", {
-                    state: {
-                        score,
-                        penalty,
-                        level: "Hard",
-                        targetEfficiency: `${((score / (score + penalty)) * 100 || 0).toFixed(2)}%`,
-                        efficiencyPerSecond,
-                    },
-                });
-                return 0;
-            }
-            const newTime = prevTime - 1;
-            const elapsed = duration - newTime;
-            const totalClicks = score + penalty;
-            const currentEfficiency = totalClicks > 0 ? (score / totalClicks) * 100 : 0;
-            setEfficiencyPerSecond(prev => [...prev, { second: elapsed, efficiency: currentEfficiency }]);
-            return newTime;
-        });
+      setGameTime((prevTime) => {
+        if (prevTime <= 1) {
+          clearInterval(timer);
+          setGameStarted(false);
+          navigate("/result", {
+            state: {
+              score,
+              penalty,
+              level: "Hard",
+              targetEfficiency: `${((score / (score + penalty)) * 100 || 0).toFixed(2)}%`,
+              efficiencyPerSecond,
+            },
+          });
+          return 0;
+        }
+        const newTime = prevTime - 1;
+        const elapsed = duration - newTime;
+        const totalClicks = score + penalty;
+        const currentEfficiency = totalClicks > 0 ? (score / totalClicks) * 100 : 0;
+        setEfficiencyPerSecond(prev => [...prev, { second: elapsed, efficiency: currentEfficiency }]);
+        return newTime;
+      });
     }, 1000);
 
     return () => clearInterval(timer);
-}, [gameStarted, score, penalty, navigate, duration, efficiencyPerSecond]);
+  }, [gameStarted, score, penalty, navigate, duration, efficiencyPerSecond]);
   useEffect(() => {
     if (!gameStarted) return;
 
@@ -95,10 +95,11 @@ useEffect(() => {
   return (
     <div className="flex flex-col items-center">
       {/* Timer & Score */}
-      <div className="geist-mono-latin-500 text-white text-lg mb-4">
-        <p>Time Left: {gameTime}s</p>
-        <p>Score: {score}</p>
-        <p>Penalty: {penalty}</p>
+      <div className="fira-500 text-white text-lg mb-4">
+        <p>
+          Score: {score} |
+          Time Left: {gameTime}s |
+          Penalty: {penalty}</p>
       </div>
 
       {/* Game Container */}

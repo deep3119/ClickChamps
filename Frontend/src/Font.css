@@ -1,72 +1,107 @@
+/* Define @font-face for each weight */
 @font-face {
-  font-family: 'geist-mono-latin-100-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-100-normal.ttf');
-}
-@font-face {
-  font-family: 'geist-mono-latin-200-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-200-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-Light.ttf');
+  font-weight: 100;
 }
 @font-face {
-  font-family: 'geist-mono-latin-300-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-300-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-Medium.ttf');
+  font-weight: 200;
 }
 @font-face {
-  font-family: 'geist-mono-latin-400-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-400-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-Regular.ttf');
+  font-weight: 300;
 }
 @font-face {
-  font-family: 'geist-mono-latin-500-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-500-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-SemiBold.ttf');
+  font-weight: 400;
 }
 @font-face {
-  font-family: 'geist-mono-latin-600-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-600-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-Bold.ttf');
+  font-weight: 500;
 }
 @font-face {
-  font-family: 'geist-mono-latin-700-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-700-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/Fira_Code_v6.2/ttf/FiraCode-Retina.ttf');
+  font-weight: 600;
 }
 @font-face {
-  font-family: 'geist-mono-latin-800-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-800-normal.ttf');
-}
-@font-face {
-  font-family: 'geist-mono-latin-900-normal';
-  src: url('../src/Fonts/geist-mono_5.1.1/ttf/geist-mono-latin-900-normal.ttf');
+  font-family: 'FiraCode';
+  src: url('../src/Fonts/FiraCode_6.2/ttf/FiraCode-Retina.ttf');
+  font-weight: 700;
 }
 
-.geist-mono-latin-100{
-  font-family: 'geist-mono-latin-100-normal';
+/* Base Font Class */
+.fira {
+  font-family: 'FiraCode', monospace;
 }
 
-.geist-mono-latin-200{
-  font-family: 'geist-mono-latin-200-normal';
+/* Weight-Specific Classes */
+.fira-100 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 100;
+}
+.fira-200 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 200;
+}
+.fira-300 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 300;
+}
+.fira-400 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 400;
+}
+.fira-500 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 500;
+}
+.fira-600 {
+  font-family: 'FiraCode', monospace;
+  font-weight: 600;
 }
 
-.geist-mono-latin-300{
-  font-family: 'geist-mono-latin-300-normal';
+/* Alias Classes for Common Weights */
+.fira-thin {
+  font-family: 'FiraCode', monospace;
+  font-weight: 100;
+}
+.fira-light {
+  font-family: 'FiraCode', monospace;
+  font-weight: 300;
+}
+.fira-regular {
+  font-family: 'FiraCode', monospace;
+  font-weight: 400;
+}
+.fira-medium {
+  font-family: 'FiraCode', monospace;
+  font-weight: 500;
+}
+.fira-semi-bold {
+  font-family: 'FiraCode', monospace;
+  font-weight: 600;
+}
+.fira-bold {
+  font-family: 'FiraCode', monospace;
+  font-weight: 700;
 }
 
-.geist-mono-latin-400{
-  font-family: 'geist-mono-latin-400-normal';
+/* Common Sizes */
+.fira-small {
+  font-size: 14px;
 }
-
-.geist-mono-latin-500{
-  font-family: 'geist-mono-latin-500-normal';
+.fira-normal {
+  font-size: 16px;
 }
-
-.geist-mono-latin-600{
-  font-family: 'geist-mono-latin-600-normal';
+.fira-large {
+  font-size: 20px;
 }
-
-.geist-mono-latin-700{
-  font-family: 'geist-mono-latin-700-normal';
-}
-
-.geist-mono-latin-800{
-  font-family: 'geist-mono-latin-800-normal';
-}
-
-.geist-mono-latin-900{
-  font-family: 'geist-mono-latin-900-normal';
+.fira-xlarge {
+  font-size: 24px;
 }
