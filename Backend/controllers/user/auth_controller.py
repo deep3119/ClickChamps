@@ -59,6 +59,7 @@ def register(username, email, password):
             "password": hashed_password,
             "stats": {
                 "overall": {
+                    "all_time_best": {"low_level": {"score": 0, "seconds": 0},"medium_level": {"score": 0, "seconds": 0},"hard_level": {"score": 0, "seconds": 0}},
                 },
                 "test_history": []  # Initialize empty test history
             },

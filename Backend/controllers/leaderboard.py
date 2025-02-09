@@ -6,23 +6,46 @@ logger = logging.getLogger(__name__)
 
 def get_leaderboard():
     try:
-        leaderboard_data = []
-        leaderboard = mongo.db.users.find()
+        pipeline = [
+            {
+                "$project": {
+                    "username": 1,
+                    "average_score": "$stats.average_score",
+                    "overall_efficiency": "$stats.overall_efficiency",
+                    "tests_completed": "$stats.tests_completed",
+                    "all_time_best_score": "$stats.overall.all_time_best.low_level.score",
+                    "all_time_best_seconds": "$stats.overall.all_time_best.low_level.seconds",
+                    "last_activity": {"$arrayElemAt": ["$stats.test_history.date", -1]}  # Gets the most recent test date
+                }
+            },
+            {
+                "$sort": {
+                    "average_score": -1,
+                    "overall_efficiency": -1,
+                    "last_activity": -1
+                }
+            },
+            {
+                "$limit": 10  # Top 10 players
+            }
+        ]
 
-        for user in leaderboard:
-            overall_stats = user.get('stats', {}).get('overall', {})
-            all_time_best = overall_stats.get('all_time_best', {})
-            leaderboard_data.append({
-                'username': user.get('username'),
-                'wpm': overall_stats.get('average_wpm', 0),
-                'accuracy': overall_stats.get('overall_accuracy', 0),
-                'best_time_mode_wpm': all_time_best.get('time_mode', {}).get('wpm', 0),
-                'best_words_mode_wpm': all_time_best.get('words_mode', {}).get('wpm', 0)
-            })
+        leaderboard_data = list(mongo.db.users.aggregate(pipeline))
+        
+        # Convert MongoDB objects to JSON-serializable format
+        for entry in leaderboard_data:
+            entry["_id"] = str(entry["_id"])
+            # Check if last_activity exists and is not None before parsing
+            if "last_activity" in entry and entry["last_activity"] is not None:
+                entry["last_activity"] = entry["last_activity"]
+            else:
+                entry["last_activity"] = None
 
         return jsonify({"leaderboard": leaderboard_data}), 200
+
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        logger.error(f"Leaderboard error: {str(e)}")
+        return jsonify({'error': 'Could not retrieve leaderboard'}), 500
         
 
 def get_user_stats(user_id):

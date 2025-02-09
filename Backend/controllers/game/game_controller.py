@@ -48,11 +48,15 @@ def store_game_result(request, current_user):
 
         # Retrieve all_time_best stats (preserving existing data)
         overall_stats = current_stats.get('overall', {})
-        all_time_best = overall_stats.get('all_time_best', {
-            "low_level": {"score": 0, "seconds": 0},
-            "medium_level": {"score": 0, "seconds": 0},
-            "hard_level": {"score": 0, "seconds": 0}
-        })
+        all_time_best = overall_stats.get('all_time_best', {})
+
+        # Ensure each level exists with default values
+        if "low_level" not in all_time_best:
+            all_time_best["low_level"] = {"score": 0, "seconds": 0}
+        if "medium_level" not in all_time_best:
+            all_time_best["medium_level"] = {"score": 0, "seconds": 0}
+        if "hard_level" not in all_time_best:
+            all_time_best["hard_level"] = {"score": 0, "seconds": 0}
 
         # Update level-specific scores in all_time_best (only if the new score is higher)
         update_fields = {}  # To store fields to be updated in MongoDB
