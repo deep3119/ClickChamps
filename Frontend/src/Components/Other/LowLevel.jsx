@@ -85,8 +85,8 @@ const LowLevel = () => {
           state: {
             score: hits,
             penalty: penaltyClicks,
-            level: "Low",
-            targetEfficiency: `${gameAccuracy}%`,
+            level: "easy",
+            targetEfficiency: parseFloat(gameAccuracy),
             efficiencyPerSecond: targetEfficiencyPerSecond,
           },
         });
