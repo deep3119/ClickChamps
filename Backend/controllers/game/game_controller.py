@@ -111,3 +111,33 @@ def store_game_result(request, current_user):
 
     except Exception as e:
         return jsonify({"message": f"An error occurred while storing the result: {str(e)}"}), 500
+    
+
+
+from flask import jsonify
+
+def user_stats(request):
+    try:
+        # Fetch all users from the database
+        users = mongo.db.users.find({}, {"stats.tests_completed": 1})  # Only fetch the `stats.tests_completed` field
+        
+        # Initialize counters
+        user_count = 0
+        total_tests_completed = 0
+
+        # Iterate through users and calculate stats
+        for user in users:
+            user_count += 1
+            # Safely access the `tests_completed` field directly under `stats`
+            tests_completed = user.get("stats", {}).get("tests_completed", 0)
+            print(f"User: {user.get('_id')}, Tests Completed: {tests_completed}")  # Debug log
+            total_tests_completed += tests_completed
+
+        # Return the results
+        return jsonify({
+            "total_users": user_count,
+            "total_tests_completed": total_tests_completed
+        }), 200
+
+    except Exception as e:
+        return jsonify({"message": f"An error occurred while fetching user stats: {str(e)}"}), 500

@@ -16,8 +16,10 @@
     "js-cookie": "^3.0.5",
     "motion": "^12.4.1",
     "react": "^18.3.1",
+    "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
     "react-hot-toast": "^2.5.1",
+    "react-visibility-sensor": "^5.1.1",
     "recharts": "^2.15.0",
     "tailwind-merge": "^3.0.1"
   },

@@ -6,12 +6,12 @@ import TypingPro from './TypingPro'
 import UserSays from './UserSays'
 import Footer from './Footer'
 
-function Main() {
+function Main({apiUrl}) {
     return (
         <main>
             <Master />
             <Choose />
-            <Numbers />
+            <Numbers apiUrl={apiUrl} />
             <TypingPro />
             {/* <UserSays /> */}
             <Footer />

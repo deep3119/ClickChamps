@@ -8,7 +8,7 @@ function TypingPro() {
                     Ready to Become a <span className="underline underline-offset-8 decoration-red-400">Clicking Pro</span>
                     ?</h2>
                 <p className="text-xl fira-400 text-neutral-400 max-w-2xl mx-auto leading-relaxed" style={{ transform: "translateY(20px)" }}>
-                    Join thousands of users who have improved their typing speed and accuracy with ClickChamps.</p>
+                    Join thousands of users who have improved their clicking speed and accuracy with ClickChamps.</p>
                 <div style={{ transform: "translateY(20px)" }}>
                     <a className="inline-flex items-center justify-center gap-2 fira-600 text-white whitespace-nowrap text-sm focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 text-primary-foreground shadow bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 font-semibold transition-all duration-300 h-10 rounded-md px-8" href="/click">
                         Get Started for Free
