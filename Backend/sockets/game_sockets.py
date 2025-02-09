@@ -2,7 +2,6 @@ from flask_socketio import join_room, emit
 from flask import jsonify
 import random
 import time
-from utils.fake_data import generate_sample_text
 
 # Game sentences
 
@@ -11,31 +10,26 @@ games = {}
 
 def register_game_sockets(socketio):
     @socketio.on('create_game')
-    def handle_create_game(username, mode, word_count=None, time_duration=None):
-        print(f"Received create_game event: username={username}, mode={mode}, word_count={word_count}, time_duration={time_duration}")
+    def handle_create_game(username,mode):
+        print(f"Received create_game event: username={username}, mode={mode}")
 
         # Validate 'mode' parameter
-        if mode not in ["words", "time"]:
+        if mode not in ["easy", "medium", "hard"]:
             emit('error', {'message': 'Invalid mode. Must be "words" or "time".'})
             return
 
         # Validate 'word_count' or 'time_duration' based on the mode
-        if mode == "words" and word_count not in [15, 30, 45]:
-            emit('error', {'message': 'Invalid word count. Must be 15, 30, or 45.'})
-            return
-        if mode == "time" and time_duration not in [15, 30, 60]:
-            emit('error', {'message': 'Invalid time duration. Must be 15, 30, or 60 seconds.'})
+        if mode == "easy" or mode == "medium" or mode == "hard":
+            emit('error', {'message': 'Invalid mode duration. Must be easy, medium, or hard.'})
             return
 
         # Generate a random game ID and sentence
         game_id = str(random.randint(1000, 9999))
-        text = generate_sample_text(word_count) if mode == "words" else generate_sample_text(45)
 
         # Store game data
         games[game_id] = {
             'creator': username,
             'players': [{'username': username, 'isCreator': True}],
-            'sentence': text,
             'start_time': None,
             'results': {},
             'stats': {}
@@ -73,27 +67,27 @@ def register_game_sockets(socketio):
     def handle_update_stats(data):
         game_id = data['game_id']
         username = data['username']
-        wpm = data['wpm']
-        accuracy = data['accuracy']
+        targetEfficiency = data['targetEfficiency']
+        score=data['score']
 
         if game_id in games:
-            games[game_id]['stats'][username] = {'wpm': wpm, 'accuracy': accuracy}
+            games[game_id]['stats'][username] = {'targetEfficiency': targetEfficiency, 'score': score}
             emit('update_leaderboard', games[game_id]['stats'], room=game_id)
 
     @socketio.on('submit_result')
     def handle_submit_result(data):
         game_id = data['game_id']
         username = data['username']
-        typed_text = data['typed_text']
-        wpm = data['wpm']
-        accuracy = data['accuracy']
+        targetEfficiency = data['targetEfficiency']
+        score=data['score']
+        
 
         if game_id in games:
-            games[game_id]['results'][username] = {'wpm': wpm, 'accuracy': accuracy}
+            games[game_id]['results'][username] ={'targetEfficiency': targetEfficiency, 'score': score}
             emit('result_submitted', {
                 'username': username,
-                'wpm': wpm,
-                'accuracy': accuracy
+                'targetEfficiency': targetEfficiency,
+                'score': score
             }, room=game_id)
 
             if len(games[game_id]['results']) == len(games[game_id]['players']):

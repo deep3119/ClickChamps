@@ -16,7 +16,7 @@ socketio = None
 def create_app():
     global mongo, bcrypt, socketio
     app = Flask(__name__)
-    CORS(app, resources={r"/*": {"origins": "http://localhost:5173", "supports_credentials": True}})
+    CORS(app, resources={r"/*": {"origins": "http://localhost:5173", "supports_credentials": True},})
     
     # MongoDB configuration
     app.config["MONGO_URI"] = "mongodb://localhost:27017/ClickChamps"
@@ -31,6 +31,10 @@ def create_app():
 
     # Register Socket.IO event handlers
     register_game_sockets(socketio)
+    @socketio.on('message')
+    def handle_message(msg):
+        print(f"Received message: {msg}")
+        socketio.send(msg, broadcast=True)
 
     # Importing routes
     from routes.user import user
@@ -51,4 +55,4 @@ def create_app():
 app = create_app()  # Assign the returned app instance
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, transport=['websockets'])
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000, use_reloader=False)
