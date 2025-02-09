@@ -21,6 +21,7 @@
     "react-hot-toast": "^2.5.1",
     "react-visibility-sensor": "^5.1.1",
     "recharts": "^2.15.0",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.0.1"
   },
   "devDependencies": {
