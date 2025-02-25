@@ -27,14 +27,14 @@ def create_app():
     mongo = PyMongo(app)
     bcrypt = Bcrypt(app)
     jwt = JWTManager(app)
-    socketio = SocketIO(app)
+    socketio = SocketIO(app, cors_allowed_origins="http://localhost:5173", async_mode=None)
 
     # Register Socket.IO event handlers
     register_game_sockets(socketio)
-    @socketio.on('message')
-    def handle_message(msg):
-        print(f"Received message: {msg}")
-        socketio.send(msg, broadcast=True)
+    # @socketio.on('message')
+    # def handle_message(msg):
+    #     print(f"Received message: {msg}")
+    #     socketio.send(msg, broadcast=True)
 
     # Importing routes
     from routes.user import user

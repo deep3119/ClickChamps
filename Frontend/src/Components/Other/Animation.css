@@ -1,0 +1,117 @@
+/* Keyframes for pop-in animation with bounce effect */
+@keyframes popIn {
+  0% {
+    transform: scale(0); /* Start small */
+    opacity: 0; /* Fully transparent */
+  }
+  50% {
+    transform: scale(1.3); /* Overshoot slightly larger than normal */
+    opacity: 1; /* Fully visible */
+  }
+  75% {
+    transform: scale(0.9); /* Bounce back a little smaller */
+  }
+  100% {
+    transform: scale(1); /* Normal size */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Keyframes for pop-out animation with fade and shrink */
+@keyframes popOut {
+  0% {
+    transform: scale(1); /* Normal size */
+    opacity: 1; /* Fully visible */
+  }
+  50% {
+    transform: scale(0.8); /* Slightly shrink */
+    opacity: 0.5; /* Partially transparent */
+  }
+  100% {
+    transform: scale(0); /* Shrink to nothing */
+    opacity: 0; /* Fully transparent */
+  }
+}
+
+/* Keyframes for rotational animation (optional) */
+@keyframes rotateIn {
+  0% {
+    transform: rotate(0deg) scale(0); /* Start small and not rotated */
+    opacity: 0; /* Fully transparent */
+  }
+  100% {
+    transform: rotate(360deg) scale(1); /* Rotate fully and grow to normal size */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Keyframes for glowing effect */
+@keyframes glow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5); /* Subtle glow */
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 0, 0, 1); /* Brighter glow */
+  }
+}
+
+/* Keyframes for growing shade effect */
+@keyframes growingShade {
+  0% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Small, subtle shadow */
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* Larger, more prominent shadow */
+  }
+  100% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Back to subtle shadow */
+  }
+}
+
+/* Apply animations to dots */
+.dot-pop-in {
+  animation: popIn 0.6s ease-out forwards; /* Grow and stabilize with bounce */
+}
+
+.dot-pop-out {
+  animation: popOut 0.4s ease-in forwards; /* Shrink and disappear */
+}
+
+.dot-rotate-in {
+  animation: rotateIn 1s ease-out forwards; /* Rotate and grow */
+}
+
+.dot-glow {
+  animation: glow 1.5s infinite alternate; /* Continuous glowing effect */
+}
+
+.dot-growing-shade {
+  animation: growingShade 2s infinite ease-in-out; /* Growing shade effect */
+}
+
+
+/* animation.css */
+/* Medium level  */
+/* Keyframes for blinking animation */
+/* Animation.css */
+
+/* Keyframes for continuous pop-in and pop-out animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1); /* Normal size */
+    opacity: 1; /* Fully visible */
+  }
+  50% {
+    transform: scale(1.3); /* Slightly larger */
+    opacity: 1; /* Fully visible */
+  }
+  100% {
+    transform: scale(1); /* Back to normal size */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Apply the continuous pulsating animation to dots */
+.dot-pulse {
+  animation: pulse 1s infinite ease-in-out; /* Continuous pulsating effect */
+}

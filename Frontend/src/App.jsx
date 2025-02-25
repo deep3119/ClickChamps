@@ -9,9 +9,11 @@ import Multiplayer from "./Components/Other/Multiplayer";
 import Logout from "./Components/Common/Logout";
 import ClickGame from "./Components/Other/Click";
 import { Toaster } from 'react-hot-toast';
+import Loader from "./Components/Common/Loader";
 
 const checkAuth = () => {
-  const token = localStorage.getItem("token") || document.cookie.includes("access_token");
+  // const token = localStorage.getItem("token") || document.cookie.includes("access_token");
+  const token =  document.cookie.includes("access_token");
   return !!token;
 };
 
@@ -24,11 +26,13 @@ function App() {
   useEffect(() => {
     const authStatus = checkAuth();
     setIsAuthenticated(authStatus);
-    setLoading(false);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
   }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loader />;
   }
 
   return (

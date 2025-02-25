@@ -1,40 +1,47 @@
 import React, { useState, useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
-import "../Other/Animation.css";
-import ScoreSound from "../../score.mp3"
-import WrongSound from "../../wrong.mp3"
-import WinSound from "../../win.mp3"
+import io from "socket.io-client";
+import ScoreSound from "../../score.mp3";
+import WrongSound from "../../wrong.mp3";
+import WinSound from "../../win.mp3";
+import "../Other/Animation.css"; // Import the CSS file for animations
 
-const LowLevel = () => {
+const socket = io("http://127.0.0.1:5000");
+
+export default function MultiplayerLowLevel({ mode, gameId, setResults, username }) {
   const [dots, setDots] = useState([]);
   const [clickedDots, setClickedDots] = useState(0);
   const [totalDots, setTotalDots] = useState(0);
   const [gameTime, setGameTime] = useState(15);
   const [isGameOver, setIsGameOver] = useState(false);
-  const [accuracy, setAccuracy] = useState(0);
-  const [gameStarted, setGameStarted] = useState(false);
   const [penaltyClicks, setPenaltyClicks] = useState(0);
   const [hits, setHits] = useState(0);
-  const [targetEfficiencyPerSecond, setTargetEfficiencyPerSecond] = useState([]);
+  const [gameStarted, setGameStarted] = useState(false);
+  const [countdown, setCountdown] = useState(5); // Countdown timer
   const gameContainerRef = useRef(null);
-  const navigate = useNavigate();
 
   // Preload sound effects
-  const scoreSound = new Audio(ScoreSound); 
-  const wrongSound = new Audio(WrongSound); 
-  const winSound = new Audio(WinSound); 
+  const scoreSound = new Audio(ScoreSound);
+  const wrongSound = new Audio(WrongSound);
+  const winSound = new Audio(WinSound);
 
+  // Generate a random dot
   const generateDot = () => {
     const container = gameContainerRef.current;
     const containerWidth = container.offsetWidth;
     const containerHeight = container.offsetHeight;
     const randomX = Math.floor(Math.random() * (containerWidth - 40));
     const randomY = Math.floor(Math.random() * (containerHeight - 40));
-    return { x: randomX, y: randomY, id: Date.now() + Math.random(), className: "dot-pop-in dot-growing-shade" };
+    return {
+      x: randomX,
+      y: randomY,
+      id: Date.now() + Math.random(),
+      className: "dot-pop-in dot-pulse", // Add animations here
+    };
   };
 
+  // Handle dot click
   const handleDotClick = (event, index) => {
-    event.stopPropagation(); // Prevent the global click event from firing
+    event.stopPropagation();
     setDots((prev) => prev.filter((_, i) => i !== index));
     setClickedDots((prev) => prev + 1);
     setHits((prev) => prev + 1);
@@ -44,6 +51,7 @@ const LowLevel = () => {
     scoreSound.play();
   };
 
+  // Handle global click (penalty logic)
   const handleGlobalClick = (event) => {
     if (!gameStarted) return;
 
@@ -69,73 +77,8 @@ const LowLevel = () => {
     }
   };
 
-  useEffect(() => {
-    if (gameTime <= 0 || !gameStarted) return;
-
-    const intervalId = setInterval(() => {
-      if (gameTime > 0) {
-        const newDot = generateDot();
-        setDots((prev) => [...prev, { ...newDot, className: "dot-pop-in" }]);
-        setTotalDots(prev => prev + 1); // Update total dots count
-        setTimeout(() => {
-          setDots((prev) =>
-            prev.map((dot) =>
-              dot.id === newDot.id ? { ...dot, className: "dot-pop-out" } : dot
-            )
-          );
-          setTimeout(() => {
-            setDots((prev) => prev.filter((dot) => dot.id !== newDot.id));
-          }, 300);
-        }, 2000);
-      }
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, [gameTime, gameStarted]);
-
-  useEffect(() => {
-    if (gameTime <= 0 || !gameStarted) return;
-
-    const timerId = setInterval(() => setGameTime((prev) => prev - 1), 1000);
-    return () => clearInterval(timerId);
-  }, [gameTime, gameStarted]);
-
-  useEffect(() => {
-    if (gameTime <= 0) {
-      setIsGameOver(true);
-      const gameAccuracy = totalDots > 0 ? ((clickedDots / totalDots) * 100).toFixed(2) : 0;
-      setAccuracy(gameAccuracy);
-
-      // Play win sound effect
-      winSound.currentTime = 0; // Reset the sound to the beginning
-      winSound.play();
-
-      setTimeout(() => {
-        navigate("/result", {
-          state: {
-            score: hits,
-            penalty: penaltyClicks,
-            level: "easy",
-            targetEfficiency: parseFloat(gameAccuracy),
-            efficiencyPerSecond: targetEfficiencyPerSecond,
-          },
-        });
-      }, 2000);
-    }
-  }, [gameTime, totalDots, hits, penaltyClicks, navigate, targetEfficiencyPerSecond]);
-
-  useEffect(() => {
-    if (!gameStarted || gameTime <= 0) return;
-    const elapsed = 15 - gameTime;
-    const currentEfficiency = totalDots > 0 ? (hits / totalDots) * 100 : 0;
-    setTargetEfficiencyPerSecond((prev) => [
-      ...prev,
-      { second: elapsed, efficiency: currentEfficiency },
-    ]);
-  }, [gameTime, gameStarted, hits, totalDots]);
-
-  const startGame = (event) => { // Add event parameter
-    event.stopPropagation(); // Stop event propagation
+  // Start the game
+  const startGame = () => {
     setGameStarted(true);
     setGameTime(15);
     setClickedDots(0);
@@ -143,9 +86,104 @@ const LowLevel = () => {
     setPenaltyClicks(0);
     setHits(0);
     setIsGameOver(false);
-    setTargetEfficiencyPerSecond([]);
   };
 
+  // Countdown logic
+  useEffect(() => {
+    if (!gameStarted && countdown > 0) {
+      const countdownInterval = setInterval(() => {
+        setCountdown((prev) => prev - 1);
+      }, 1000);
+
+      return () => clearInterval(countdownInterval);
+    }
+
+    if (countdown === 0) {
+      startGame(); // Automatically start the game when countdown reaches 0
+    }
+  }, [countdown, gameStarted]);
+
+  // WebSocket event listeners
+  useEffect(() => {
+    socket.on("game_over", ({ results }) => {
+      console.log("Game over! Results:", results);
+      setIsGameOver(true); // Update game state
+      setResults(results); // Store results for display
+    });
+
+    return () => {
+      socket.off("game_over");
+    };
+  }, []);
+
+  useEffect(() => {
+    socket.on("game_started_for_all", ({ start_time }) => {
+      setGameStarted(true);
+      setGameTime(15);
+    });
+
+    socket.on("update_leaderboard", (stats) => {
+      console.log("Leaderboard updated:", stats);
+    });
+
+    socket.on("game_over", ({ results }) => {
+      setIsGameOver(true);
+      console.log("Game over! Results:", results);
+    });
+
+    return () => {
+      socket.off("game_started_for_all");
+      socket.off("update_leaderboard");
+      socket.off("game_over");
+    };
+  }, []);
+
+  // Timer logic
+  useEffect(() => {
+    if (!gameStarted || gameTime <= 0) return;
+
+    const intervalId = setInterval(() => {
+      if (gameTime > 0) {
+        const newDot = generateDot();
+        setDots((prev) => [...prev, newDot]);
+        setTotalDots((prev) => prev + 1);
+
+        setTimeout(() => {
+          setDots((prev) => prev.filter((dot) => dot.id !== newDot.id));
+        }, 2000);
+      }
+    }, 1000);
+
+    const timerId = setInterval(() => setGameTime((prev) => prev - 1), 1000);
+
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(timerId);
+    };
+  }, [gameStarted, gameTime]);
+
+  // Game over logic
+  useEffect(() => {
+    if (gameTime <= 0) {
+      setIsGameOver(true);
+      const gameAccuracy = totalDots > 0 ? ((clickedDots / totalDots) * 100).toFixed(2) : 0;
+
+      // Play win sound effect
+      winSound.currentTime = 0; // Reset the sound to the beginning
+      winSound.play();
+
+      // Submit results to the server
+      socket.emit("submit_result", {
+        game_id: gameId,
+        username: username, // Replace with actual username
+        targetEfficiency: parseFloat(gameAccuracy),
+        score: hits,
+        penalty: penaltyClicks,
+      });
+    }
+  }, [gameTime, totalDots, hits, penaltyClicks]);
+
+  // Attach global click listener
   useEffect(() => {
     if (gameStarted) {
       document.addEventListener("click", handleGlobalClick);
@@ -158,6 +196,13 @@ const LowLevel = () => {
 
   return (
     <div className="flex flex-col items-center">
+      {/* Countdown Display */}
+      {!gameStarted && (
+        <div className="text-3xl font-bold text-white mb-4">
+          {countdown > 0 ? `Game will start in ${countdown}` : "Start!"}
+        </div>
+      )}
+
       {/* Timer & Score */}
       <div className="fira-500 text-white text-lg mb-4">
         <p>Score: {hits} | Time Left: {gameTime}s | Penalty: {penaltyClicks}</p>
@@ -184,20 +229,6 @@ const LowLevel = () => {
           />
         ))}
       </div>
-
-      {/* Start Button */}
-      {!gameStarted && (
-        <div className="mt-4">
-          <button
-            onClick={startGame}
-            className="bg-red-500 text-white px-4 py-2 rounded-md text-xl"
-          >
-            Start Game
-          </button>
-        </div>
-      )}
     </div>
   );
-};
-
-export default LowLevel;
+}

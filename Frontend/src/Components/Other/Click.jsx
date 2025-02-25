@@ -15,13 +15,11 @@ const ClickGame = ({ isAuthenticated }) => {
     return (
         <div className="antialiased min-h-screen bg-gradient-to-b from-neutral-900 to-black text-neutral-400">
             <Navbar isAuthenticated={isAuthenticated} />
-            <div className="p-6 pt-0">
+            <div className="py-3 px-8">
                 <div
-                    role="tablist"
                     aria-orientation="horizontal"
-                    className="h-9 items-center justify-center rounded-lg p-1 grid w-full grid-cols-3 bg-neutral-800 text-neutral-300"
+                    className="h-9 items-center justify-center mx-auto rounded-lg p-1 grid w-[85%] grid-cols-3 bg-neutral-800 text-neutral-300"
                     tabIndex={-1}
-                    data-orientation="horizontal"
                     style={{ outline: "none" }}
                 >
                     <button

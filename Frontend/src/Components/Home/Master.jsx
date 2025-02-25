@@ -29,7 +29,7 @@ function Master() {
 
           {/* Subtitle */}
           <p
-            className="fira-400 text-xl text-neutral-400 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
+            className="fira-400 text-xl hover:text-white text-neutral-400 max-w-3xl mx-auto leading-relaxed animate-fade-in-up"
             style={{ animationDelay: "0.4s" }}
           >
             Practice clicking, challenge friends, and track improvements with real-time stats in a sleek, minimalist interface.

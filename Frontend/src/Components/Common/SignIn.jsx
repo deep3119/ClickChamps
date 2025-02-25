@@ -246,29 +246,6 @@ const SignIn = ({ setSignInMethod, apiUrl }) => {
                                 />
                             </div>
                         </div>
-                        <div className="flex items-center p-6 pt-0">
-                            <button className="inline-flex fira-500 bg-white text-black items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    width={24}
-                                    height={24}
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth={2}
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    className="lucide lucide-chrome"
-                                >
-                                    <circle cx={12} cy={12} r={10} />
-                                    <circle cx={12} cy={12} r={4} />
-                                    <line x1="21.17" x2={12} y1={8} y2={8} />
-                                    <line x1="3.95" x2="8.54" y1="6.06" y2={14} />
-                                    <line x1="10.88" x2="15.46" y1="21.94" y2={14} />
-                                </svg>
-                                <span>Continue with Google</span>
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>

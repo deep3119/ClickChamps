@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import '../../Font.css'
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
-function SignUp({ setSignInMethod ,apiUrl}) {
+function SignUp({ setSignInMethod, apiUrl }) {
     const setSignInMethodHandler = (a) => {
         if (a === 1) {
             setSignInMethod(true)
@@ -28,27 +29,28 @@ function SignUp({ setSignInMethod ,apiUrl}) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-    
+
         try {
             const response = await axios.post(`${apiUrl}/user/register`, {
-                username: formData.name, 
+                username: formData.name,
                 email: formData.email,
                 password: formData.password
             });
-            
+            toast.success("Successfully registered")
+            setSignInMethod(true)
             console.log('Response:', response.data);
-    
+
             // Handle successful signup (e.g., redirect, show success message, etc.)
         } catch (error) {
             console.error('Error during signup:', error.response ? error.response.data : error.message);
-    
+
             // Handle error and show error message
             if (error.response && error.response.data) {
                 alert(error.response.data.message || 'Something went wrong!');
             }
         }
     };
-    
+
     return (
         <div className="flex items-center justify-center py-5 mt-10 p-4 pb-10">
             <div
@@ -58,7 +60,7 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                 <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800">
                     <div className="flex flex-col space-y-1.5 p-6">
                         <div className="tracking-tight fira-700 text-2xl font-bold text-center text-neutral-200">
-                            Welcome to TypeFast
+                            Welcome to ClickFast
                         </div>
                         <div className="text-sm text-center fira-400 text-neutral-400">
                             Sign in to your account or create a new one
@@ -268,29 +270,6 @@ function SignUp({ setSignInMethod ,apiUrl}) {
                                 className="mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                             />
                         </div>
-                    </div>
-                    <div className="flex items-center p-6 pt-0">
-                        <button className="inline-flex fira-500 text-black bg-white items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-9 px-4 py-2 w-full">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-chrome"
-                            >
-                                <circle cx={12} cy={12} r={10} />
-                                <circle cx={12} cy={12} r={4} />
-                                <line x1="21.17" x2={12} y1={8} y2={8} />
-                                <line x1="3.95" x2="8.54" y1="6.06" y2={14} />
-                                <line x1="10.88" x2="15.46" y1="21.94" y2={14} />
-                            </svg>
-                            <span>Continue with Google</span>
-                        </button>
                     </div>
                 </div>
             </div>

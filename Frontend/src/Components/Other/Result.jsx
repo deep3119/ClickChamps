@@ -4,6 +4,7 @@ import '../../Font.css';
 import PerformanceChart from './PerformanceChart';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Result({ isAuthenticated, apiUrl }) {
     const location = useLocation();
@@ -117,8 +118,7 @@ function Result({ isAuthenticated, apiUrl }) {
     ];
 
     const storeGameResult = async () => {
-        const token = localStorage.getItem('token'); // Get the token from localStorage
-
+        const token = localStorage.getItem('token'); 
         if (!token) {
             console.error('No token found, cannot store game result.');
             return; // Don't make the API call if no token is present
@@ -142,9 +142,11 @@ function Result({ isAuthenticated, apiUrl }) {
 
             if (response.status === 200) {
                 console.log('Game result stored successfully:', response.data);
+                toast.success('Game Result Stored Successfully!');
             }
         } catch (error) {
             console.error('Error storing game result:', error.response?.data?.message || error.message);
+            toast.error('Error Storing Game Result!');
         }
     };
 
@@ -212,7 +214,7 @@ function Result({ isAuthenticated, apiUrl }) {
                     <div className="flex justify-evenly">
                         <button
                             onClick={() => navigate("/click")}
-                            className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 shadow transition-all duration-300"
+                            className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-16 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-700 hover:to-red-800 shadow transition-all duration-300"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -230,26 +232,28 @@ function Result({ isAuthenticated, apiUrl }) {
                             </svg>
                             Try Again
                         </button>
-                        <button
-                            onClick={endGame}
-                            className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-8 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 shadow transition-all duration-300"
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={24}
-                                height={24}
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth={2}
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                className="lucide lucide-stop-circle"
+                        {isAuthenticated ?
+                            <button
+                                onClick={endGame}
+                                className="inline-flex fira-600 text-white items-center justify-center gap-2 text-sm font-semibold h-10 rounded-md px-16 bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-700 hover:to-emerald-800 shadow transition-all duration-300"
                             >
-                                <circle cx={12} cy={12} r={10} />
-                                <path d="M9 9h6v6H9z" />
-                            </svg>
-                            End Game
-                        </button>
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width={24}
+                                    height={24}
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth={2}
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    className="lucide lucide-stop-circle"
+                                >
+                                    <circle cx={12} cy={12} r={10} />
+                                    <path d="M9 9h6v6H9z" />
+                                </svg>
+                                End Game
+                            </button>
+                           :<></>}
                     </div>
 
                 </div>

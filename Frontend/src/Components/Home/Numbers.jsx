@@ -19,7 +19,6 @@ function Numbers({ apiUrl }) {
     axios
       .get(`${apiUrl}/game/user_stats`) // Replace `/stats` with your actual API endpoint
       .then((response) => {
-        console.log(response.data); // Debugging
         setData({
           registeredUsers: response.data.total_users || 0,
           racesCompleted: response.data.total_tests_completed || 0,
@@ -48,9 +47,9 @@ function Numbers({ apiUrl }) {
         {/* Stats */}
         <div className="flex justify-center pt-9 gap-8">
           {/* Registered Users */}
-          <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 w-full max-w-xs">
+          <div className="rounded-xl transition-all ease-in-out duration-700 hover:shadow-gray-400 shadow-lg hover:-translate-y-1 hover:scale-110 border text-card-foreground bg-neutral-900/50 border-neutral-800 w-full max-w-xs">
             <div className="p-5 text-center space-y-2">
-              <div className="text-neutral-400 fira-400 text-base">Clickers Registered</div>
+              <div className="text-neutral-400 fira-400 text-base hover:text-white">Clickers Registered</div>
               <VisibilitySensor
                 partialVisibility
                 offset={{ bottom: 200 }}
@@ -74,9 +73,9 @@ function Numbers({ apiUrl }) {
           </div>
 
           {/* Races Completed */}
-          <div className="rounded-xl border text-card-foreground shadow bg-neutral-900/50 border-neutral-800 w-full max-w-xs">
+          <div className="rounded-xl hover:shadow-gray-400 shadow-lg hover:-translate-y-1 hover:scale-110 transition  duration-700 ease-in-out border text-card-foreground  bg-neutral-900/50 border-neutral-800 w-full max-w-xs">
             <div className="p-5 text-center space-y-2">
-              <div className="text-neutral-400 fira-400 text-base">Races Completed</div>
+              <div className="text-neutral-400 fira-400 text-base hover:text-white">Races Completed</div>
               <VisibilitySensor
                 partialVisibility
                 offset={{ bottom: 200 }}

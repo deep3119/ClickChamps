@@ -1,19 +1,39 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import "../Other/Animation.css"; // Import the CSS file for animations
+import ScoreSound from "../../score.mp3";
+import WrongSound from "../../wrong.mp3";
+import WinSound from "../../win.mp3";
 
 const MediumLevel = ({ duration = 20 }) => {
   const [dots, setDots] = useState([]);
   const [score, setScore] = useState(0);
   const [gameTime, setGameTime] = useState(duration);
   const [gameStarted, setGameStarted] = useState(false);
-  const [penalty, setPenalty] = useState(0); // Add a penalty state
+  const [penalty, setPenalty] = useState(0); // Penalty state
+  const [totalClicks, setTotalClicks] = useState(0); // Track total clicks
   const gameContainerRef = useRef(null);
   const navigate = useNavigate();
-
-  // Add a new state variable
   const [efficiencyPerSecond, setEfficiencyPerSecond] = useState([]);
 
-  // Update the timer useEffect
+  // Preload sound effects
+  const scoreSound = new Audio(ScoreSound);
+  const wrongSound = new Audio(WrongSound);
+  const winSound = new Audio(WinSound);
+
+  // Generate a random dot
+  const addDot = () => {
+    const container = gameContainerRef.current;
+    if (!container) return;
+    const containerWidth = container.offsetWidth;
+    const randomX = Math.random() * (containerWidth - 40); // Ensures dots stay inside the border
+    setDots((prevDots) => [
+      ...prevDots,
+      { id: Date.now(), x: randomX, y: 0, className: "dot-pulse" }, // Apply pulsating animation
+    ]);
+  };
+
+  // Timer logic
   useEffect(() => {
     if (!gameStarted) return;
 
@@ -22,31 +42,41 @@ const MediumLevel = ({ duration = 20 }) => {
         if (prevTime <= 1) {
           clearInterval(timer);
           setGameStarted(false);
+          // Play win sound effect
+          winSound.currentTime = 0; // Reset the sound to the beginning
+          winSound.play();
+
+          // Navigate to results page
           navigate("/result", {
             state: {
               score,
               penalty,
               level: "Medium",
-              targetEfficiency: parseFloat(((score / duration) * 100).toFixed(2)),
+              targetEfficiency: parseFloat(((score / totalClicks) * 100).toFixed(2)) || 0, // Ensure efficiency is capped at 100%
               efficiencyPerSecond,
             },
           });
           return 0;
         }
+
         const newTime = prevTime - 1;
         const elapsed = duration - newTime;
-        const currentEfficiency = (score / elapsed) * 100 || 0;
+        const currentEfficiency =
+          totalClicks > 0 ? ((score / totalClicks) * 100).toFixed(2) : 0; // Calculate efficiency
+
         setEfficiencyPerSecond((prev) => [
           ...prev,
           { second: elapsed, efficiency: currentEfficiency },
         ]);
+
         return newTime;
       });
     }, 1000);
 
     return () => clearInterval(timer);
-  }, [gameStarted, score, penalty, navigate, duration, efficiencyPerSecond]);
+  }, [gameStarted, score, penalty, navigate, duration, efficiencyPerSecond, totalClicks]);
 
+  // Dot spawn logic
   useEffect(() => {
     if (!gameStarted) return;
 
@@ -57,6 +87,7 @@ const MediumLevel = ({ duration = 20 }) => {
     return () => clearInterval(spawnDots);
   }, [gameStarted]);
 
+  // Dot movement logic
   useEffect(() => {
     if (!gameStarted) return;
 
@@ -71,36 +102,26 @@ const MediumLevel = ({ duration = 20 }) => {
     return () => clearInterval(moveInterval);
   }, [gameStarted]);
 
-  const addDot = () => {
-    const container = gameContainerRef.current;
-    if (!container) return;
-
-    const containerWidth = container.offsetWidth;
-    const randomX = Math.random() * (containerWidth - 40); // Ensures dots stay inside the border
-    setDots((prevDots) => [...prevDots, { id: Date.now(), x: randomX, y: 0 }]);
-  };
-
+  // Handle dot click
   const handleDotClick = (e, id) => {
-    // Stop event propagation to prevent triggering the container click handler
-    e.stopPropagation();
-
-    // Increase score when a dot is clicked
+    e.stopPropagation(); // Prevent the global click event from firing
     setDots((prevDots) => prevDots.filter((dot) => dot.id !== id));
     setScore((prev) => prev + 1);
+    setTotalClicks((prev) => prev + 1); // Increment total clicks
+    scoreSound.currentTime = 0; // Reset the sound to the beginning
+    scoreSound.play();
   };
 
+  // Handle container click (penalty logic)
   const handleContainerClick = (e) => {
     if (!gameStarted) return;
-    // Check if the user clicked outside of any dots (penalty logic)
+
     const clickedInsideDot = dots.some((dot) => {
       const dotElement = document.getElementById(dot.id);
       if (!dotElement) return false;
-
       const dotRect = dotElement.getBoundingClientRect();
       const clickX = e.clientX;
       const clickY = e.clientY;
-
-      // Check if the click is inside the bounds of the dot
       return (
         clickX >= dotRect.left &&
         clickX <= dotRect.right &&
@@ -110,8 +131,11 @@ const MediumLevel = ({ duration = 20 }) => {
     });
 
     if (!clickedInsideDot) {
-      // If clicked outside any dots, apply a penalty
       setPenalty((prev) => prev + 1);
+      setTotalClicks((prev) => prev + 1); // Increment total clicks
+      // Play penalty sound effect
+      wrongSound.currentTime = 0; // Reset the sound to the beginning
+      wrongSound.play();
     }
   };
 
@@ -120,9 +144,8 @@ const MediumLevel = ({ duration = 20 }) => {
       {/* Timer & Score */}
       <div className="fira-500 text-white text-lg mb-4">
         <p>
-          Score: {score} |
-          Time Left: {gameTime}s |
-          Penalty: {penalty}</p>
+          Score: {score} | Time Left: {gameTime}s | Penalty: {penalty}
+        </p>
       </div>
 
       {/* Game Container */}
@@ -138,7 +161,7 @@ const MediumLevel = ({ duration = 20 }) => {
             key={dot.id}
             id={dot.id} // Assign an ID to each dot to get its bounding box
             onClick={(e) => handleDotClick(e, dot.id)} // Handle click on each dot
-            className="absolute bg-red-500 rounded-full cursor-pointer"
+            className={`absolute bg-red-500 rounded-full cursor-pointer ${dot.className}`}
             style={{
               left: `${dot.x}px`,
               top: `${dot.y}px`,

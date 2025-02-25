@@ -1,0 +1,49 @@
+/* Loader Container */
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh; /* Full screen height */
+    background-color: #121212; /* Dark background for contrast */
+  }
+  
+  /* Dot Loader Animation */
+  .dot-loader {
+    width: 20px;
+    height: 20px;
+    background-color: #ff4d4f; /* Red dot */
+    border-radius: 50%;
+    margin: 5px;
+    animation: bounce 0.6s infinite alternate;
+  }
+  
+  .dot-loader-delay-1 {
+    animation-delay: 0.2s; /* Slight delay for staggered effect */
+  }
+  
+  .dot-loader-delay-2 {
+    animation-delay: 0.4s; /* Slight delay for staggered effect */
+  }
+  
+  /* Bounce Animation */
+  @keyframes bounce {
+    0% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(-20px);
+      opacity: 0.5;
+    }
+  }
+  
+  /* Loader Text */
+  .loader-text {
+    margin-top: 20px;
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
