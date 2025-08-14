@@ -6,6 +6,16 @@ ClickChamps is a real-time multiplayer gaming platform designed to test and impr
 
 ---
 
+---
+
+## 🖼️ Demo Screenshot
+
+Here’s a preview of the ClickChamps front page:
+
+![ClickChamps Front Page](./Frontend/public/home.png)
+
+---
+
 ## 🧩 Overview
 
 ClickChamps is a gamified platform that allows users to participate in real-time clicking challenges. Whether you're competing with friends or challenging random players globally, ClickChamps provides an engaging experience with detailed performance stats, leaderboards, and personalized user profiles.
